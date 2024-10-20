@@ -107,8 +107,8 @@ builder.Services.AddDbContext<ContentCommandDbContext>((serviceProvider, options
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), option =>
 	{
 		option.EnableRetryOnFailure(6);
-		option.MinBatchSize(1);
 	});
+
 	options.UseCommonShadowPropertiesInterceptor()
 	.UseDomainEventsDispatcherInterceptor();
 });
@@ -116,9 +116,12 @@ builder.Services.AddDbContext<ContentCommandDbContext>((serviceProvider, options
 //query dbcontext
 builder.Services.AddDbContext<ContentQueryDbContext>(options =>
 {
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-	//todo aya baraye khandan az dbcontext ha niaz be estefade az convertor ha ke baraye command dbcontext neveshtam hast?
-
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), option =>
+	{
+		option.EnableRetryOnFailure(6);
+	});
+	options.UseCommonShadowPropertiesInterceptor()
+		.UseDomainEventsDispatcherInterceptor();
 });
 
 builder.Services.AddAutoMapper(options => options.AddMaps(

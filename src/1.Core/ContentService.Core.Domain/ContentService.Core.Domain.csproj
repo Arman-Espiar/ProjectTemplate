@@ -12,8 +12,6 @@
     <PackageReference Include="FluentValidation" Version="11.10.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MicroDomainFlowFramework\src\Framework\Framework.csproj" />
-    <ProjectReference Include="..\..\..\..\MicroDomainFlowFramework\src\Resources\Resources.csproj" />
     <ProjectReference Include="..\ContentService.Resources\ContentService.Resources.csproj" />
     <ProjectReference Include="..\EventBus.Messages\EventBus.Messages.csproj" />
   </ItemGroup>
