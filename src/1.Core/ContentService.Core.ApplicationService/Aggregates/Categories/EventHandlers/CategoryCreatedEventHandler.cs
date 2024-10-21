@@ -19,7 +19,7 @@ public sealed class CategoryCreatedEventHandler : IDomainEventHandler<CategoryCr
 		Console.ForegroundColor = ConsoleColor.Blue;
 		Console.WriteLine(context.Message);
 		Console.WriteLine(ErrorMessages.CanNotDelete("test"));
-		Console.WriteLine(ContentErrorMessages.ErrorSample);
+		Console.WriteLine(ContentServiceErrorMessages.ErrorSample);
 		Console.WriteLine(DataDictionary.Name);
 		Console.WriteLine(ContentServiceDataDictionary.Sample);
 		Console.ResetColor();

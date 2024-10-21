@@ -7,9 +7,9 @@ using MDF.Framework.Infrastructure.Commands;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Aggregates.Categories;
-public class CategoryCommandEntityFrameworkRepository : BaseCommandEntityFrameworkRepository<Category, ContentCommandDbContext>, ICategoryCommandRepository
+public class CategoryCommandEntityFrameworkRepository : BaseCommandEntityFrameworkRepository<Category, ContentServiceCommandDbContext>, ICategoryCommandRepository
 {
-	public CategoryCommandEntityFrameworkRepository(ContentCommandDbContext dbContext) : base(dbContext)
+	public CategoryCommandEntityFrameworkRepository(ContentServiceCommandDbContext dbContext) : base(dbContext)
 	{
 	}
 	//  در ICategoryCommandRepository اضافه کرد

@@ -12,10 +12,10 @@ using MDF.Framework.Infrastructure.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Categories;
-public class CategoryQueryEntityFrameworkRepository : BaseQueryRepository<ContentQueryDbContext>, ICategoryQueryRepository
+public class CategoryQueryEntityFrameworkRepository : BaseQueryRepository<ContentServiceQueryDbContext>, ICategoryQueryRepository
 {
 	private IMapper _mapper;
-	public CategoryQueryEntityFrameworkRepository(ContentQueryDbContext dbContext, IMapper mapper) : base(dbContext)
+	public CategoryQueryEntityFrameworkRepository(ContentServiceQueryDbContext dbContext, IMapper mapper) : base(dbContext)
 	{
 		_mapper = mapper;
 	}

@@ -103,7 +103,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddScoped<IUnitOfWork, CommonUnitOfWork>();
 
 //command dbcontext
-builder.Services.AddDbContext<ContentCommandDbContext>((serviceProvider, options) =>
+builder.Services.AddDbContext<ContentServiceCommandDbContext>((serviceProvider, options) =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), option =>
 	{
@@ -115,7 +115,7 @@ builder.Services.AddDbContext<ContentCommandDbContext>((serviceProvider, options
 });
 
 //query dbcontext
-builder.Services.AddDbContext<ContentQueryDbContext>(options =>
+builder.Services.AddDbContext<ContentServiceQueryDbContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), option =>
 	{
@@ -127,16 +127,16 @@ builder.Services.AddDbContext<ContentQueryDbContext>(options =>
 
 builder.Services.AddAutoMapper(options => options.AddMaps(
 	typeof(Program).Assembly
-	, typeof(ContentQueryDbContext).Assembly));
+	, typeof(ContentServiceQueryDbContext).Assembly));
 
 //ثبت خودکار ریپازیتوریها
 builder.Services.Scan(s => s.
-FromAssembliesOf(typeof(ContentCommandDbContext))
+FromAssembliesOf(typeof(ContentServiceCommandDbContext))
 	.AddClasses(classes => classes.AssignableTo(typeof(ICommandRepository<>)))
 	.AsImplementedInterfaces()
 	.WithScopedLifetime()
 
-.FromAssembliesOf(typeof(ContentQueryDbContext))
+.FromAssembliesOf(typeof(ContentServiceQueryDbContext))
 	.AddClasses(classes => classes.AssignableTo<IQueryRepository>())
 	.AsImplementedInterfaces()
 	.WithScopedLifetime()
@@ -150,7 +150,7 @@ builder.Services.AddMassTransit(configurator =>
 {
 	configurator.SetKebabCaseEndpointNameFormatter();
 
-	configurator.AddEntityFrameworkOutbox<ContentCommandDbContext>(o =>
+	configurator.AddEntityFrameworkOutbox<ContentServiceCommandDbContext>(o =>
 	{
 		o.QueryDelay = TimeSpan.FromSeconds(1);
 		o.UseSqlServer(false);//set false when using multiple DbContexts
@@ -160,7 +160,7 @@ builder.Services.AddMassTransit(configurator =>
 	// https://masstransit.io/documentation/configuration/middleware/outbox
 	configurator.AddConfigureEndpointsCallback((context, name, cfg) =>
 	{
-		cfg.UseEntityFrameworkOutbox<ContentCommandDbContext>(context);
+		cfg.UseEntityFrameworkOutbox<ContentServiceCommandDbContext>(context);
 	});
 	configurator.AddConsumers(typeof(CommentAddedEvent).Assembly, typeof(CommentAddedEventHandler).Assembly);
 
@@ -171,7 +171,7 @@ builder.Services.AddMassTransit(configurator =>
 		cfg.ReceiveEndpoint("ContentService", c =>
 		{
 			c.ConfigureConsumers(context);
-			c.UseEntityFrameworkOutbox<ContentCommandDbContext>(context);
+			c.UseEntityFrameworkOutbox<ContentServiceCommandDbContext>(context);
 			c.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
 			c.UseMessageRetry(r => r.Immediate(5));
 		});

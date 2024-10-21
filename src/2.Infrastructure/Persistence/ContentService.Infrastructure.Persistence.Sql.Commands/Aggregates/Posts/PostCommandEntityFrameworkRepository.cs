@@ -10,9 +10,9 @@ namespace ContentService.Infrastructure.Persistence.Sql.Commands.Aggregates.Post
 /// نباید از خروجی های IQueryable و IEnumerable استفاده شود
 /// هر متدی که لازم بود باید نوشته شود با خروجی مشخص
 /// </summary>
-public class PostCommandEntityFrameworkRepository : BaseCommandEntityFrameworkRepository<Post, ContentCommandDbContext>, IPostCommandRepository
+public class PostCommandEntityFrameworkRepository : BaseCommandEntityFrameworkRepository<Post, ContentServiceCommandDbContext>, IPostCommandRepository
 {
-	public PostCommandEntityFrameworkRepository(ContentCommandDbContext dbContext) : base(dbContext)
+	public PostCommandEntityFrameworkRepository(ContentServiceCommandDbContext dbContext) : base(dbContext)
 	{
 	}
 	//  در IPostCommandRepository اضافه کرد

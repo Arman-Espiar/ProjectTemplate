@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Common;
-public class ContentCommandDbContextFactory : IDesignTimeDbContextFactory<ContentCommandDbContext>
+public class ContentServiceCommandDbContextFactory : IDesignTimeDbContextFactory<ContentServiceCommandDbContext>
 {
-	public ContentCommandDbContext CreateDbContext(string[] args)
+	public ContentServiceCommandDbContext CreateDbContext(string[] args)
 	{
-		var builder = new DbContextOptionsBuilder<ContentCommandDbContext>();
+		var builder = new DbContextOptionsBuilder<ContentServiceCommandDbContext>();
 
 		var configuration = new ConfigurationBuilder()
 			.SetBasePath(Directory.GetCurrentDirectory())
@@ -18,6 +18,6 @@ public class ContentCommandDbContextFactory : IDesignTimeDbContextFactory<Conten
 
 		builder.UseSqlServer(connectionString);
 
-		return new ContentCommandDbContext(builder.Options);
+		return new ContentServiceCommandDbContext(builder.Options);
 	}
 }

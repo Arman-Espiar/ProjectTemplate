@@ -12,10 +12,10 @@ using MDF.Framework.Infrastructure.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Posts;
-public class PostQueryEntityFrameworkRepository : BaseQueryRepository<ContentQueryDbContext>, IPostQueryRepository
+public class PostQueryEntityFrameworkRepository : BaseQueryRepository<ContentServiceQueryDbContext>, IPostQueryRepository
 {
 	private IMapper _mapper;
-	public PostQueryEntityFrameworkRepository(ContentQueryDbContext dbContext, IMapper mapper) : base(dbContext)
+	public PostQueryEntityFrameworkRepository(ContentServiceQueryDbContext dbContext, IMapper mapper) : base(dbContext)
 	{
 		_mapper = mapper;
 	}

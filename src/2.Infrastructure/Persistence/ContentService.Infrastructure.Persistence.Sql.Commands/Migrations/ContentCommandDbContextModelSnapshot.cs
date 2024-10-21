@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Migrations
 {
-    [DbContext(typeof(ContentCommandDbContext))]
+    [DbContext(typeof(ContentServiceCommandDbContext))]
     partial class ContentCommandDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

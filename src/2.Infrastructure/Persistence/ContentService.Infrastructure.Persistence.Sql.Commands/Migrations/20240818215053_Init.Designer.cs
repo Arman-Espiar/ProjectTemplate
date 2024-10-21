@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Migrations
 {
-    [DbContext(typeof(ContentCommandDbContext))]
+    [DbContext(typeof(ContentServiceCommandDbContext))]
     [Migration("20240818215053_Init")]
     partial class Init
     {

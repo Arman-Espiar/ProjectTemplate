@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Common;
 
-public partial class ContentQueryDbContext : BaseQueryDbContext
+public partial class ContentServiceQueryDbContext : BaseQueryDbContext
 {
-	public ContentQueryDbContext(DbContextOptions<ContentQueryDbContext> options)
+	public ContentServiceQueryDbContext(DbContextOptions<ContentServiceQueryDbContext> options)
 		: base(options)
 	{
 	}

@@ -10,11 +10,11 @@ using MDF.Framework.Infrastructure.Conversions.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Common;
-public class ContentCommandDbContext : BaseCommandDbContext
+public class ContentServiceCommandDbContext : BaseCommandDbContext
 {
 	public DbSet<Post> Posts { get; set; }
 	public DbSet<Category> Categories { get; set; }
-	public ContentCommandDbContext(DbContextOptions<ContentCommandDbContext> options) : base(options)
+	public ContentServiceCommandDbContext(DbContextOptions<ContentServiceCommandDbContext> options) : base(options)
 	{
 	}
 
@@ -33,7 +33,7 @@ public class ContentCommandDbContext : BaseCommandDbContext
 		base.OnModelCreating(builder);
 		builder.AddCommonShadowProperties();
 		builder.ApplyConfigurationsFromAssembly
-		(typeof(ContentCommandDbContext).Assembly);
+		(typeof(ContentServiceCommandDbContext).Assembly);
 
 		//اضافه کردن OutBox pattern Masstransit
 		builder.AddInboxStateEntity();
