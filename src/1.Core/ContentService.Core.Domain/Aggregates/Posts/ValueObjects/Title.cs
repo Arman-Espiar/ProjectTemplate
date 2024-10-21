@@ -3,9 +3,8 @@
 using FluentValidation;
 using FluentValidation.Results;
 
-using Framework.Extensions.Guards.GuardClauses;
-using Framework.Extensions.Results;
-using Framework.SeedWork;
+using MDF.Extensions.Results;
+using MDF.SeedWork;
 
 using Resources.Common;
 

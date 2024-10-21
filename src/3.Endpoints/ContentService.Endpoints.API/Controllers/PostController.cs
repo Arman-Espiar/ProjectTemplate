@@ -8,9 +8,7 @@ using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentBy
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
 using ContentService.Endpoints.API.ViewModels.Posts;
-
-using Framework.Extensions.Results;
-
+using MDF.Extensions.Results;
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;

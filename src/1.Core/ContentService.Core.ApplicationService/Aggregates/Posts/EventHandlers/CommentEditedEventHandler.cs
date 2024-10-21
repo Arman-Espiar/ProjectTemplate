@@ -1,8 +1,8 @@
 ﻿using EventBus.Messages.Aggregates.Posts.Events;
 
-using Framework.Contract.ApplicationServices;
-
 using MassTransit;
+
+using MDF.Contract.ApplicationServices;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.EventHandlers;
 public class CommentEditedEventHandler : IDomainEventHandler<CommentEditedEvent>

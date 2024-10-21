@@ -2,7 +2,7 @@
 using ContentService.Core.Domain.Aggregates.Categories;
 using ContentService.Infrastructure.Persistence.Sql.Commands.Common;
 
-using Framework.Infrastructure.Commands;
+using MDF.Infrastructure.Commands;
 
 using Microsoft.EntityFrameworkCore;
 

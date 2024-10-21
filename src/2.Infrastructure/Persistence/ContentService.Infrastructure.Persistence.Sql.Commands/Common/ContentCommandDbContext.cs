@@ -1,11 +1,11 @@
 ﻿using ContentService.Core.Domain.Aggregates.Categories;
 using ContentService.Core.Domain.Aggregates.Posts;
 
-using Framework.Infrastructure.Commands;
-using Framework.Infrastructure.Commands.ShadowProperties;
-using Framework.Infrastructure.Conversions.Extensions;
-
 using MassTransit;
+
+using MDF.Infrastructure.Commands;
+using MDF.Infrastructure.Commands.ShadowProperties;
+using MDF.Infrastructure.Conversions.Extensions;
 
 using Microsoft.EntityFrameworkCore;
 

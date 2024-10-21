@@ -1,8 +1,8 @@
 ﻿using FluentResults;
 
-using Framework.Extensions.Guards;
-using Framework.Extensions.Guards.GuardClauses;
-using Framework.SeedWork;
+using MDF.Extensions.Guards;
+using MDF.Extensions.Guards.GuardClauses;
+using MDF.SeedWork;
 
 using Resources.Common;
 

@@ -1,9 +1,9 @@
 ﻿using EventBus.Messages.Aggregates.Posts.Events;
 
-using Framework.Contract.ApplicationServices;
-using Framework.Logging;
-
 using MassTransit;
+
+using MDF.Contract.ApplicationServices;
+using MDF.Logging;
 
 using Microsoft.Extensions.Logging;
 

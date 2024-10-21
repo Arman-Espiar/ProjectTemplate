@@ -2,7 +2,7 @@
 using ContentService.Core.Domain.Aggregates.Posts;
 using ContentService.Infrastructure.Persistence.Sql.Commands.Common;
 
-using Framework.Infrastructure.Commands;
+using MDF.Infrastructure.Commands;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Aggregates.Posts;
 /// <summary>

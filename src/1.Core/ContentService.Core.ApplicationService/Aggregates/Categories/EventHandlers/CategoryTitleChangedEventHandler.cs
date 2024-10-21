@@ -1,8 +1,8 @@
 ﻿using EventBus.Messages.Aggregates.Categories.Events;
 
-using Framework.Contract.ApplicationServices;
-
 using MassTransit;
+
+using MDF.Contract.ApplicationServices;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.EventHandlers;
 public sealed class CategoryTitleChangedEventHandler : IDomainEventHandler<CategoryTitleChangedEvent>

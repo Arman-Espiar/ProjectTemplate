@@ -5,25 +5,25 @@ using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 
 using FluentResults;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
 
 using Microsoft.Extensions.Logging;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.QueriesHandlers.GetAll;
 public class GetAllSubCategoryQueryHandler : IQueryHandler<GetAllSubCategoryQuery, List<CategoryQueryDto>>
 {
-    private readonly ICategoryQueryRepository _queryRepository;
-    private readonly ILogger<GetAllSubCategoryQueryHandler> _logger;
+	private readonly ICategoryQueryRepository _queryRepository;
+	private readonly ILogger<GetAllSubCategoryQueryHandler> _logger;
 
-    public GetAllSubCategoryQueryHandler(ILogger<GetAllSubCategoryQueryHandler> logger, ICategoryQueryRepository queryRepository)
-    {
-        _logger = logger;
-        _queryRepository = queryRepository;
-    }
+	public GetAllSubCategoryQueryHandler(ILogger<GetAllSubCategoryQueryHandler> logger, ICategoryQueryRepository queryRepository)
+	{
+		_logger = logger;
+		_queryRepository = queryRepository;
+	}
 
-    public async Task<Result<List<CategoryQueryDto>>> Handle(GetAllSubCategoryQuery request, CancellationToken cancellationToken)
-    {
-        var subCategories = await _queryRepository.ExecuteAsync(request, cancellationToken);
-        return Result.Ok(subCategories);
-    }
+	public async Task<Result<List<CategoryQueryDto>>> Handle(GetAllSubCategoryQuery request, CancellationToken cancellationToken)
+	{
+		var subCategories = await _queryRepository.ExecuteAsync(request, cancellationToken);
+		return Result.Ok(subCategories);
+	}
 }

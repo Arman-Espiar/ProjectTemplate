@@ -4,7 +4,7 @@ using ContentService.Core.Domain.Aggregates.Categories;
 
 using FluentResults;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
 
 using Resources.Common.FormattedMessages;
 

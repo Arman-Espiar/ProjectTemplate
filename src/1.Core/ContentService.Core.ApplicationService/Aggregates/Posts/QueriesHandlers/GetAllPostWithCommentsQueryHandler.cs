@@ -4,7 +4,7 @@ using ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;
 
 using FluentResults;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
 public sealed class GetAllPostWithCommentsQueryHandler : IQueryHandler<GetAllPostWithCommentQuery, List<PostWithCommentsQueryDto>>

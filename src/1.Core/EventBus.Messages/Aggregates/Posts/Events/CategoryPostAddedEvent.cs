@@ -1,4 +1,4 @@
-﻿using Framework.SeedWork;
+﻿using MDF.SeedWork;
 
 namespace EventBus.Messages.Aggregates.Posts.Events;
 

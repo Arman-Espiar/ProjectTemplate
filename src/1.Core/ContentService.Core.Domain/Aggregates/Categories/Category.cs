@@ -3,10 +3,10 @@
 using EventBus.Messages.Aggregates.Categories.Events;
 using EventBus.Messages.Aggregates.Posts.Events;
 
-using Framework.Extensions.Guards;
-using Framework.Extensions.Guards.GuardClauses;
-using Framework.SeedWork;
-using Framework.SeedWork.SharedKernel;
+using MDF.Extensions.Guards;
+using MDF.Extensions.Guards.GuardClauses;
+using MDF.SeedWork;
+using MDF.SeedWork.SharedKernel;
 
 using Resources.Common;
 using Resources.Common.FormattedMessages;

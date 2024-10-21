@@ -7,16 +7,16 @@ using EventBus.Messages.Aggregates.Posts.Events;
 
 using FluentValidation;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions;
-using Framework.Contract.Persistence.Commands;
-using Framework.Contract.Persistence.Queries;
-using Framework.Extensions.ExtensionMethods;
-using Framework.Infrastructure.Commands.Interceptors.Extensions;
-using Framework.Middlewares;
-using Framework.SeedWork;
-
 using MassTransit;
 using MassTransit.Logging;
+
+using MDF.Contract.ApplicationServices.MediatorExtensions;
+using MDF.Contract.Persistence.Commands;
+using MDF.Contract.Persistence.Queries;
+using MDF.Extensions.ExtensionMethods;
+using MDF.Infrastructure.Commands.Interceptors.Extensions;
+using MDF.Middlewares;
+using MDF.SeedWork;
 
 using MediatR;
 
@@ -26,6 +26,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+
 var builder = WebApplication.CreateBuilder(args);
 #region Remove This section if Using Aspire.net
 builder.Services.AddLogging(option =>
@@ -228,19 +229,22 @@ if (!app.Environment.IsDevelopment())
 
 
 app.MapControllers();
-app.Logger.StartingApp();// Remove this section if using Aspire.net
+ContentService.Endpoints.API.LoggerExtensions.StartingApp(app.Logger);// Remove this section if using Aspire.net
 app.Run();
 
 #region Remove this section if using Aspire.net
-internal static partial class LoggerExtensions
+namespace ContentService.Endpoints.API
 {
-	[LoggerMessage(LogLevel.Information, "Starting the app...")]
-	public static partial void StartingApp(this ILogger logger);
+	internal static partial class LoggerExtensions
+	{
+		[LoggerMessage(LogLevel.Information, "Starting the app...")]
+		public static partial void StartingApp(this ILogger logger);
 
-	[LoggerMessage(LogLevel.Information, "Stoping the app...")]
-	public static partial void StopingApp(this ILogger logger);
+		[LoggerMessage(LogLevel.Information, "Stoping the app...")]
+		public static partial void StopingApp(this ILogger logger);
 
-	//[LoggerMessage(LogLevel.Information, "Food `{name}` price changed to `{price}`.")]
-	//public static partial void FoodPriceChanged(this ILogger logger, string name, double price);
+		//[LoggerMessage(LogLevel.Information, "Food `{name}` price changed to `{price}`.")]
+		//public static partial void FoodPriceChanged(this ILogger logger, string name, double price);
+	}
 }
 #endregion End Remove this section if using Aspire.net

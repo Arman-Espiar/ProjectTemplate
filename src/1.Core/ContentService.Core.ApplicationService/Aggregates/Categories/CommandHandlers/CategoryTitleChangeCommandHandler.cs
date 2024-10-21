@@ -3,7 +3,7 @@ using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 
 using FluentResults;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
 
 using Resources.Common.FormattedMessages;
 

@@ -3,9 +3,9 @@ using ContentService.Resources.FormattedMessages;
 
 using EventBus.Messages.Aggregates.Categories.Events;
 
-using Framework.Contract.ApplicationServices;
-
 using MassTransit;
+
+using MDF.Contract.ApplicationServices;
 
 using Resources.Common;
 using Resources.Common.FormattedMessages;

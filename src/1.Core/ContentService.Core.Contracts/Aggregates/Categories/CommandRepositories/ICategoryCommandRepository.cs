@@ -1,6 +1,6 @@
 ﻿using ContentService.Core.Domain.Aggregates.Categories;
 
-using Framework.Contract.Persistence.Commands;
+using MDF.Contract.Persistence.Commands;
 
 namespace ContentService.Core.Contracts.Aggregates.Categories.CommandRepositories;
 public interface ICategoryCommandRepository : ICommandRepository<Category>

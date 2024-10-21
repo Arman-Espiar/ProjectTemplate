@@ -4,8 +4,8 @@ using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 
 using FluentResults;
 
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
-using Framework.Contract.Persistence.Commands;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.Persistence.Commands;
 
 using Microsoft.Extensions.Logging;
 

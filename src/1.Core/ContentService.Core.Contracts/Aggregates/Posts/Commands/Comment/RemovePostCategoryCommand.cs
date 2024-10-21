@@ -1,5 +1,5 @@
 ﻿
-using Framework.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
 public readonly record struct RemovePostCategoryCommand : ICommand

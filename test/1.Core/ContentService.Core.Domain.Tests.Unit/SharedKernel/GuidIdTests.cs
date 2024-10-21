@@ -1,4 +1,4 @@
-﻿using Framework.SeedWork.SharedKernel;
+﻿using MDF.SeedWork.SharedKernel;
 
 namespace ContentService.Core.Domain.Tests.Unit.SharedKernel;
 public class GuidIdTests

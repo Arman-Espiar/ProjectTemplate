@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Categories.QueryModels;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Posts.Configurations;
 using ContentService.Infrastructure.Persistence.Sql.Queries.QueryModels;
-
-using Framework.Infrastructure.Conversions.Extensions;
-using Framework.Infrastructure.Queries;
-using Framework.SeedWork.SharedKernel;
+using MDF.Infrastructure.Conversions.Extensions;
+using MDF.Infrastructure.Queries;
+using MDF.SeedWork.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Common;

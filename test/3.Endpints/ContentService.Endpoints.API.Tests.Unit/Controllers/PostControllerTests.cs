@@ -11,7 +11,7 @@ using ContentService.Endpoints.API.ViewModels.Posts;
 
 using FluentResults;
 
-using Framework.Extensions.Results;
+using MDF.Extensions.Results;
 
 using MediatR;
 
