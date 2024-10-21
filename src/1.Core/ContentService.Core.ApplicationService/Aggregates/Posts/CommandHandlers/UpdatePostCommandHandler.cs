@@ -3,9 +3,8 @@ using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-
-using Resources.Common.FormattedMessages;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 public sealed class UpdatePostCommandHandler : ICommandHandler<UpdatePostCommand, Guid>

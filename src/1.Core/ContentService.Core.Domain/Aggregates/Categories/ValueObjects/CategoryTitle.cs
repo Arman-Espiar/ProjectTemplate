@@ -1,10 +1,9 @@
 ﻿using FluentResults;
 
-using MDF.Extensions.Guards;
-using MDF.Extensions.Guards.GuardClauses;
-using MDF.SeedWork;
-
-using Resources.Common;
+using MDF.Framework.Extensions.Guards;
+using MDF.Framework.Extensions.Guards.GuardClauses;
+using MDF.Framework.SeedWork;
+using MDF.Resources.Common;
 
 namespace ContentService.Core.Domain.Aggregates.Categories.ValueObjects;
 public class CategoryTitle : BaseValueObject<string>

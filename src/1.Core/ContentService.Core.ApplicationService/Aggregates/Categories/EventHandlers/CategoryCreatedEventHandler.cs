@@ -5,10 +5,9 @@ using EventBus.Messages.Aggregates.Categories.Events;
 
 using MassTransit;
 
-using MDF.Contract.ApplicationServices;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.LayersContracts.ApplicationServices;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.EventHandlers;
 public sealed class CategoryCreatedEventHandler : IDomainEventHandler<CategoryCreatedEvent>

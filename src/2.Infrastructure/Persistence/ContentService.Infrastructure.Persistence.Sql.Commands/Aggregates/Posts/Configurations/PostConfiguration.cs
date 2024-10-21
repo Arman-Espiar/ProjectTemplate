@@ -2,7 +2,7 @@
 using ContentService.Core.Domain.Aggregates.Posts.Entities;
 using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 
-using MDF.SeedWork.SharedKernel;
+using MDF.Framework.SeedWork.SharedKernel;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

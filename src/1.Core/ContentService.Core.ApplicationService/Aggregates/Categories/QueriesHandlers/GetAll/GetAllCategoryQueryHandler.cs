@@ -4,7 +4,7 @@ using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 using Microsoft.Extensions.Logging;
 

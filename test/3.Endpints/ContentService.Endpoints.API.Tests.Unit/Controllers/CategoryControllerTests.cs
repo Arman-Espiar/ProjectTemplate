@@ -9,7 +9,7 @@ using ContentService.Endpoints.API.ViewModels.Categories;
 
 using FluentResults;
 
-using MDF.Extensions.Results;
+using MDF.Framework.Extensions.Results;
 
 using MediatR;
 

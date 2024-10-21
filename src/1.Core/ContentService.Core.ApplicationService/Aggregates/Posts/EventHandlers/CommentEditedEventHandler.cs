@@ -2,7 +2,7 @@
 
 using MassTransit;
 
-using MDF.Contract.ApplicationServices;
+using MDF.Framework.LayersContracts.ApplicationServices;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.EventHandlers;
 public class CommentEditedEventHandler : IDomainEventHandler<CommentEditedEvent>

@@ -3,11 +3,10 @@ using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Resources.Common.FormattedMessages;
 
 using Microsoft.Extensions.Logging;
-
-using Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.CommandHandlers;
 public class RemoveParentCategoryCommandHandler : ICommandHandler<RemoveParentCategoryCommand>

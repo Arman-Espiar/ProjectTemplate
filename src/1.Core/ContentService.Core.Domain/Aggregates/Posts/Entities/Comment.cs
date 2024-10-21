@@ -2,10 +2,9 @@
 
 using FluentResults;
 
-using MDF.SeedWork;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.SeedWork;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Aggregates.Posts.Entities;
 public class Comment : Entity

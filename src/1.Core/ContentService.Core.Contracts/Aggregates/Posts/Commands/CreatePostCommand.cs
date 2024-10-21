@@ -1,4 +1,4 @@
-﻿using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+﻿using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.Contracts.Aggregates.Posts.Commands;
 public class CreatePostCommand : BaseCommand<Guid>

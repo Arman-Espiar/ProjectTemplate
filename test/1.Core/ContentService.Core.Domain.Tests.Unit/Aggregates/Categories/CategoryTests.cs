@@ -3,8 +3,8 @@
 using EventBus.Messages.Aggregates.Categories.Events;
 using EventBus.Messages.Aggregates.Posts.Events;
 
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Tests.Unit.Aggregates.Categories;
 public class CategoryTests

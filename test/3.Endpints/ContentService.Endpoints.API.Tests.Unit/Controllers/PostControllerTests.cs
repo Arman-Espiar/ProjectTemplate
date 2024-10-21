@@ -10,9 +10,7 @@ using ContentService.Endpoints.API.Controllers;
 using ContentService.Endpoints.API.ViewModels.Posts;
 
 using FluentResults;
-
-using MDF.Extensions.Results;
-
+using MDF.Framework.Extensions.Results;
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;

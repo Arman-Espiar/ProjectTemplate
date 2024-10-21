@@ -1,9 +1,8 @@
 ﻿using FluentResults;
 
-using MDF.SeedWork;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.SeedWork;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 using System.Text.RegularExpressions;
 

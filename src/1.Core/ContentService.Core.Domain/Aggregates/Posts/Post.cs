@@ -3,11 +3,10 @@ using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 
 using EventBus.Messages.Aggregates.Posts.Events;
 
-using MDF.SeedWork;
-using MDF.SeedWork.SharedKernel;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.SeedWork;
+using MDF.Framework.SeedWork.SharedKernel;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Aggregates.Posts;
 

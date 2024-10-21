@@ -4,10 +4,9 @@ using ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
 public class GetPostWithCommentsByIdQueryHandler : IQueryHandler<GetPostWithCommentsByIdQuery, PostWithCommentsQueryDto>

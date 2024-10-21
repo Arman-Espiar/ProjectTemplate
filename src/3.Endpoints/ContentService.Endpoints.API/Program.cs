@@ -10,13 +10,13 @@ using FluentValidation;
 using MassTransit;
 using MassTransit.Logging;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions;
-using MDF.Contract.Persistence.Commands;
-using MDF.Contract.Persistence.Queries;
-using MDF.Extensions.ExtensionMethods;
-using MDF.Infrastructure.Commands.Interceptors.Extensions;
-using MDF.Middlewares;
-using MDF.SeedWork;
+using MDF.Framework.Extensions.ExtensionMethods;
+using MDF.Framework.Infrastructure.Commands.Interceptors.Extensions;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions;
+using MDF.Framework.LayersContracts.Persistence.Commands;
+using MDF.Framework.LayersContracts.Persistence.Queries;
+using MDF.Framework.Middlewares;
+using MDF.Framework.SeedWork;
 
 using MediatR;
 

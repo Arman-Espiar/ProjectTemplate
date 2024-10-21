@@ -2,7 +2,7 @@
 using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 using ContentService.Infrastructure.Persistence.Sql.Queries.QueryModels;
 
-using MDF.SeedWork.SharedKernel;
+using MDF.Framework.SeedWork.SharedKernel;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

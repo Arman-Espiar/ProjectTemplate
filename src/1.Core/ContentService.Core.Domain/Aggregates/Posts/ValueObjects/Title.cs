@@ -3,10 +3,9 @@
 using FluentValidation;
 using FluentValidation.Results;
 
-using MDF.Extensions.Results;
-using MDF.SeedWork;
-
-using Resources.Common;
+using MDF.Framework.Extensions.Results;
+using MDF.Framework.SeedWork;
+using MDF.Resources.Common;
 
 namespace ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 public class Title : BaseValueObject<string?>

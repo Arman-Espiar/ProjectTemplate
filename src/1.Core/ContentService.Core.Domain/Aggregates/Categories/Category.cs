@@ -3,13 +3,12 @@
 using EventBus.Messages.Aggregates.Categories.Events;
 using EventBus.Messages.Aggregates.Posts.Events;
 
-using MDF.Extensions.Guards;
-using MDF.Extensions.Guards.GuardClauses;
-using MDF.SeedWork;
-using MDF.SeedWork.SharedKernel;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.Extensions.Guards;
+using MDF.Framework.Extensions.Guards.GuardClauses;
+using MDF.Framework.SeedWork;
+using MDF.Framework.SeedWork.SharedKernel;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Aggregates.Categories;
 

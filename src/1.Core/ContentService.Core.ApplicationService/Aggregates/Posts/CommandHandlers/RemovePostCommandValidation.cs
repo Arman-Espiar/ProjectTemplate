@@ -2,7 +2,7 @@
 
 using FluentValidation;
 
-using Resources.Common;
+using MDF.Resources.Common;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 public class RemovePostCommandValidation : AbstractValidator<RemovePostCommand>

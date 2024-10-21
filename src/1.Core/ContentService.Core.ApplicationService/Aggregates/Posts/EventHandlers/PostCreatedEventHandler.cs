@@ -2,8 +2,8 @@
 
 using MassTransit;
 
-using MDF.Contract.ApplicationServices;
-using MDF.Logging;
+using MDF.Framework.LayersContracts.ApplicationServices;
+using MDF.Framework.Logging;
 
 using Microsoft.Extensions.Logging;
 

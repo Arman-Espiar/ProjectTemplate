@@ -2,7 +2,7 @@
 
 using MassTransit;
 
-using MDF.Contract.ApplicationServices;
+using MDF.Framework.LayersContracts.ApplicationServices;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.EventHandlers;
 public sealed class CategoryRemovedEventHandler : IDomainEventHandler<CategoryRemovedEvent>

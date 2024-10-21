@@ -7,7 +7,7 @@ using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
 using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Common;
 
-using MDF.Infrastructure.Queries;
+using MDF.Framework.Infrastructure.Queries;
 
 using Microsoft.EntityFrameworkCore;
 

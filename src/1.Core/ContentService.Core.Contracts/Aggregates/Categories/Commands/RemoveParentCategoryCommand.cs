@@ -1,4 +1,5 @@
-﻿using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+﻿
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.Contracts.Aggregates.Categories.Commands;
 public class RemoveParentCategoryCommand : ICommand

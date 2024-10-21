@@ -1,4 +1,4 @@
-﻿using MDF.Infrastructure.Commands;
+﻿using MDF.Framework.Infrastructure.Commands;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Common;
 public class CommonUnitOfWork : BaseEntityFrameworkUnitOfWork<ContentCommandDbContext>

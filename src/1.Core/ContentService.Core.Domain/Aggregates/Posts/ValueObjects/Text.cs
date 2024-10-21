@@ -1,9 +1,8 @@
 ﻿using FluentResults;
 
-using MDF.SeedWork;
-
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Framework.SeedWork;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 //بدون استفاده از کتابخانه fluentValidation

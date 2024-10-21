@@ -4,9 +4,8 @@ using ContentService.Core.Domain.Aggregates.Posts;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-
-using Resources.Common.Messages;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Resources.Common.Messages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 /// <summary>

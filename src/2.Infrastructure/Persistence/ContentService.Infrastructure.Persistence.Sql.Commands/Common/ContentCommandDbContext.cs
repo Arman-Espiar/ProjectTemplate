@@ -3,9 +3,9 @@ using ContentService.Core.Domain.Aggregates.Posts;
 
 using MassTransit;
 
-using MDF.Infrastructure.Commands;
-using MDF.Infrastructure.Commands.ShadowProperties;
-using MDF.Infrastructure.Conversions.Extensions;
+using MDF.Framework.Infrastructure.Commands;
+using MDF.Framework.Infrastructure.Commands.ShadowProperties;
+using MDF.Framework.Infrastructure.Conversions.Extensions;
 
 using Microsoft.EntityFrameworkCore;
 

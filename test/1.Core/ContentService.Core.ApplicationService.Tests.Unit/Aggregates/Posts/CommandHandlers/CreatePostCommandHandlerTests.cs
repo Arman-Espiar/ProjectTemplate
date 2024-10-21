@@ -3,9 +3,9 @@ using ContentService.Core.Contracts.Aggregates.Posts.CommandRepositories;
 using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 using ContentService.Core.Domain.Aggregates.Posts;
 
-using Moq;
+using MDF.Resources.Common.Messages;
 
-using Resources.Common.Messages;
+using Moq;
 
 namespace ContentService.Core.ApplicationService.Tests.Unit.Aggregates.Posts.CommandHandlers;
 public class CreatePostCommandHandlerTests

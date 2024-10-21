@@ -4,7 +4,7 @@ using ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
 public class GetAllPostQueryHandler : IQueryHandler<GetAllPostQuery, List<PostQueryDto>>

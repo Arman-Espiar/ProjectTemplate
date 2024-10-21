@@ -3,7 +3,7 @@ using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 
 using FluentValidation;
 
-using Resources.Common;
+using MDF.Resources.Common;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 public class CreatePostCommandValidation : AbstractValidator<CreatePostCommand>

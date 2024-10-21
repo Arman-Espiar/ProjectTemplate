@@ -2,7 +2,7 @@
 
 using FluentValidation;
 
-using MDF.SeedWork;
+using MDF.Framework.SeedWork;
 
 namespace ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 public class Description : BaseValueObject<string>

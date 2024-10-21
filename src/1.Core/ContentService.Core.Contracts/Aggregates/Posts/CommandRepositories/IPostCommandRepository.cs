@@ -1,6 +1,6 @@
 ﻿using ContentService.Core.Domain.Aggregates.Posts;
 
-using MDF.Contract.Persistence.Commands;
+using MDF.Framework.LayersContracts.Persistence.Commands;
 
 namespace ContentService.Core.Contracts.Aggregates.Posts.CommandRepositories;
 

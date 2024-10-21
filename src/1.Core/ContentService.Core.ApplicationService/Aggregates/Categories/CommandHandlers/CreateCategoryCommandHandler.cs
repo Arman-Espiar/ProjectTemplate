@@ -4,9 +4,8 @@ using ContentService.Core.Domain.Aggregates.Categories;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-
-using Resources.Common.FormattedMessages;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.CommandHandlers;
 public class CreateCategoryCommandHandler : ICommandHandler<CreateCategoryCommand, Guid>

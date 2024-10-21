@@ -4,12 +4,11 @@ using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 
 using FluentResults;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-using MDF.Contract.Persistence.Commands;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
+using MDF.Framework.LayersContracts.Persistence.Commands;
+using MDF.Resources.Common.FormattedMessages;
 
 using Microsoft.Extensions.Logging;
-
-using Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 public class AddCategoryCommandHandler : ICommandHandler<AddCategoryCommand, Guid>

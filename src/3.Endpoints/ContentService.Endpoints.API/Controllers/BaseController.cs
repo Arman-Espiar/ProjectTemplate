@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
-using MDF.Contract.ApplicationServices.MediatorExtensions.CQRS;
-using MDF.Extensions.Results;
+using MDF.Framework.Extensions.Results;
+using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 using MediatR;
 

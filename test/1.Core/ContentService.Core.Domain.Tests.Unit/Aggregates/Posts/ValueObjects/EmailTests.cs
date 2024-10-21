@@ -1,7 +1,7 @@
 ﻿using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 
-using Resources.Common;
-using Resources.Common.FormattedMessages;
+using MDF.Resources.Common;
+using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.Domain.Tests.Unit.Aggregates.Posts.ValueObjects;
 public class EmailTests
