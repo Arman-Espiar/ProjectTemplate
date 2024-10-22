@@ -9,6 +9,7 @@ using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
 using ContentService.Endpoints.API.ViewModels.Posts;
 
+using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
 
 using MediatR;

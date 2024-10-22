@@ -6,6 +6,7 @@ using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryByI
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
 using ContentService.Endpoints.API.ViewModels.Categories;
 
+using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
 
 using MediatR;
