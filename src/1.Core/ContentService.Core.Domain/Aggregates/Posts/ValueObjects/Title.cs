@@ -35,8 +35,7 @@ public class Title : BaseValueObject<string?>
 		//var guardResult = Guard.CheckIf(value,DataDictionary.Title)
 		//			.NotEmpty<string>()
 		//			.MinimumLength(Minimum) 
-		//			.MaximumLength(Maximum)
-		//			.AsResult();
+		//			.MaximumLength(Maximum);
 
 		//استفاده از Validation Result
 		Result<Title?> result = new(); // ایجاد یک نمونه از کلاس Result با نوع داده Title
