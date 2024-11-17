@@ -38,8 +38,8 @@ public class CategoryControllerTests
 		// Arrange
 		var expectedCategories = new List<CategoryQueryDto>
 							{
-								new CategoryQueryDto { Id = Guid.NewGuid(), CategoryTitle = "Category 1" },
-								new CategoryQueryDto { Id = Guid.NewGuid(), CategoryTitle = "Category 2" }
+								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Category 1" },
+								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Category 2" }
 							};
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetAllCategoryQuery>(), It.IsAny<CancellationToken>()))
@@ -59,7 +59,7 @@ public class CategoryControllerTests
 	public async Task ShouldBe_ReturnsCategory_When_GetPostAsync()
 	{
 		// Arrange
-		var categoryId = Guid.NewGuid();
+		var categoryId = Guid.CreateVersion7();
 		var expectedCategory = new CategoryQueryDto { Id = categoryId, CategoryTitle = "Category 1" };
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetCategoryByIdQuery>(), It.IsAny<CancellationToken>()))
@@ -79,11 +79,11 @@ public class CategoryControllerTests
 	public async Task ShouldBe_ReturnsListOfSubCategories_When_GetCategoryIdAsync()
 	{
 		// Arrange
-		var categoryId = Guid.NewGuid();
+		var categoryId = Guid.CreateVersion7();
 		var expectedSubCategories = new List<CategoryQueryDto>
 							{
-								new CategoryQueryDto { Id = Guid.NewGuid(), CategoryTitle = "Subcategory 1" },
-								new CategoryQueryDto { Id = Guid.NewGuid(), CategoryTitle = "Subcategory 2" }
+								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 1" },
+								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 2" }
 							};
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetAllSubCategoryQuery>(), It.IsAny<CancellationToken>()))
@@ -104,7 +104,7 @@ public class CategoryControllerTests
 	{
 		// Arrange
 		var createCategoryVm = new CreateCategoryCommandVm { CategoryTitle = "New Category" };
-		var categoryId = Guid.NewGuid();
+		var categoryId = Guid.CreateVersion7();
 
 		_mapperMock.Setup(m => m.Map<CreateCategoryCommand>(createCategoryVm))
 			.Returns(new CreateCategoryCommand { Title = createCategoryVm.CategoryTitle });
@@ -126,7 +126,7 @@ public class CategoryControllerTests
 	public async Task ShouldBe_ReturnsOkResult_When_CategoryTitleChangeAsync()
 	{
 		// Arrange
-		var categoryId = Guid.NewGuid();
+		var categoryId = Guid.CreateVersion7();
 		var categoryTitleChangeCommand = new CategoryTitleChangeCommand { Id = categoryId, Title = "New Title" };
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<CategoryTitleChangeCommand>(), It.IsAny<CancellationToken>()))
@@ -144,7 +144,7 @@ public class CategoryControllerTests
 	public async Task ShouldBe_ReturnsOkResult_When_DeletePostAsync()
 	{
 		// Arrange
-		var removeCategoryCommand = new RemoveCategoryCommand { Id = Guid.NewGuid() };
+		var removeCategoryCommand = new RemoveCategoryCommand { Id = Guid.CreateVersion7() };
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<RemoveCategoryCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(Result.Ok());

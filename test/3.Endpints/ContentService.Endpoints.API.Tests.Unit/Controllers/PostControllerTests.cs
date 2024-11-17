@@ -124,7 +124,7 @@ public class PostControllerTests
 			Text = null
 		};
 		var postCommand = new CreatePostCommand();
-		var expected = Guid.NewGuid();
+		var expected = Guid.CreateVersion7();
 		_mapperMock.Setup(x => x.Map<CreatePostCommand>(createPostVm)).Returns(postCommand);
 		_mediatorMock.Setup(x => x.Send(It.IsAny<CreatePostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
@@ -149,7 +149,7 @@ public class PostControllerTests
 			Description = null,
 			Text = null
 		};
-		var expected = Guid.NewGuid();
+		var expected = Guid.CreateVersion7();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<UpdatePostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
@@ -168,7 +168,7 @@ public class PostControllerTests
 		// Arrange
 		var removePostCommand = new RemovePostCommand()
 		{
-			PostId = Guid.NewGuid()
+			PostId = Guid.CreateVersion7()
 		};
 		_mediatorMock.Setup(x => x.Send(It.IsAny<RemovePostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(Result.Ok());
@@ -199,7 +199,7 @@ public class PostControllerTests
 			Email = null,
 			CommentText = null
 		};
-		var expected = Guid.NewGuid();
+		var expected = Guid.CreateVersion7();
 		_mapperMock.Setup(x => x.Map<AddCommentToPostCommand>(addCommentToPostCommandVm)).Returns(commentToPostCommand);
 		_mediatorMock.Setup(x => x.Send(It.IsAny<AddCommentToPostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
@@ -225,7 +225,7 @@ public class PostControllerTests
 			CommentText = null,
 			CommentNewText = null
 		};
-		var expected = Guid.NewGuid();
+		var expected = Guid.CreateVersion7();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<EditCommentThePostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
@@ -242,7 +242,7 @@ public class PostControllerTests
 	public async Task ShouldBe_DeleteCommentAsync_ReturnsOkResult_When_RemoveCommentFromPostCommandInput()
 	{
 		// Arrange
-		Guid id = Guid.NewGuid();
+		Guid id = Guid.CreateVersion7();
 		var removeCommentFromPostCommand = new RemoveCommentFromPostCommand(id, "test", "test@gmail.com", "".PadLeft(50, 's'));
 
 		_mediatorMock.Setup(x => x.Send(It.IsAny<RemoveCommentFromPostCommand>(), It.IsAny<CancellationToken>()))

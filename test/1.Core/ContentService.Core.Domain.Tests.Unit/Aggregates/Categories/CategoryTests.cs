@@ -14,7 +14,7 @@ public class CategoryTests
 	{
 		// Arrange
 		string title = "Category Title";
-		Guid parentCategoryId = Guid.NewGuid();
+		Guid parentCategoryId = Guid.CreateVersion7();
 
 		// Act
 		var category = new Category();
@@ -35,7 +35,7 @@ public class CategoryTests
 	{
 		// Arrange
 		string title = "in";
-		Guid? parentCategoryId = Guid.NewGuid();
+		Guid? parentCategoryId = Guid.CreateVersion7();
 
 		// Act
 		var category = new Category();
@@ -58,7 +58,7 @@ public class CategoryTests
 			.CreateCategory("Old Category Title");
 		category.ChangeCategoryTitle(title);
 		// Act
-		category.AddParentCategory(Guid.NewGuid());
+		category.AddParentCategory(Guid.CreateVersion7());
 
 		// Assert
 		Assert.True(category.Result.IsSuccess);
@@ -87,7 +87,7 @@ public class CategoryTests
 	public void ShouldBe_AddParentCategory_ValidParentCategoryId_When_ReturnsSuccessResult()
 	{
 		// Arrange
-		var parentCategoryId = Guid.NewGuid();
+		var parentCategoryId = Guid.CreateVersion7();
 		var category = new Category()
 			.CreateCategory("Category Title");
 
@@ -182,7 +182,7 @@ public class CategoryTests
 	public void ShouldBe_AddPostId_ValidPostId_When_ReturnsSuccessResult()
 	{
 		// Arrange
-		var postId = Guid.NewGuid();
+		var postId = Guid.CreateVersion7();
 		var category = new Category()
 			.CreateCategory("Category Title");
 

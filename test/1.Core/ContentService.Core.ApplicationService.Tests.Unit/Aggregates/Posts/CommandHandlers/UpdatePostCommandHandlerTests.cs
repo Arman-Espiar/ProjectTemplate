@@ -46,7 +46,7 @@ public class UpdatePostCommandHandlerTests
 		var post = new Post()
 			.Create("-".PadLeft(60), "-".PadLeft(160), "-".PadLeft(255));
 
-		var notExistPostId = Guid.NewGuid();
+		var notExistPostId = Guid.CreateVersion7();
 		var request = new UpdatePostCommand { PostId = notExistPostId, Title = "-".PadLeft(60), Description = "-".PadLeft(160), Text = "-".PadLeft(255) };
 
 		var cancellationToken = CancellationToken.None;

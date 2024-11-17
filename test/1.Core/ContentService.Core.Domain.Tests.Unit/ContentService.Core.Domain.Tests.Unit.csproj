@@ -19,7 +19,7 @@
     </PackageReference>
   </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.10.0" />
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\1.Core\ContentService.Core.Domain\ContentService.Core.Domain.csproj" />

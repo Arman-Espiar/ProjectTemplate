@@ -7,7 +7,7 @@ public class GuidIdTests
 	public void Create_WithValidId_ShouldReturnSuccessResult()
 	{
 		// Arrange
-		var id = Guid.NewGuid();
+		var id = Guid.CreateVersion7();
 
 		// Act
 		var result = GuidId.Create(id);
@@ -50,7 +50,7 @@ public class GuidIdTests
 	public void Create_WithInvalidLengthId_ShouldReturnFailureResult()
 	{
 		// Arrange
-		var id = Guid.NewGuid().ToString().Substring(0, GuidId.FixLength - 1);
+		var id = Guid.CreateVersion7().ToString().Substring(0, GuidId.FixLength - 1);
 
 		// Act
 		var result = GuidId.Create(id);

@@ -9,7 +9,7 @@
     <Folder Include="SharedKernel\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentService.Resources\ContentService.Resources.csproj" />

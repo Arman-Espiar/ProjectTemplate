@@ -118,7 +118,7 @@ public class PostTests
 		var post = new Post()
 			.Create(title, description, text);
 
-		Guid categoryId = Guid.NewGuid();
+		Guid categoryId = Guid.CreateVersion7();
 
 		// Act
 		post.AddCategory(categoryId);
@@ -138,8 +138,8 @@ public class PostTests
 	public void ChangeCategory_WithValidData_ShouldRaiseCategoryPostChangedEvent()
 	{
 		// Arrange
-		var oldCategoryId = Guid.NewGuid();
-		var newCategoryId = Guid.NewGuid();
+		var oldCategoryId = Guid.CreateVersion7();
+		var newCategoryId = Guid.CreateVersion7();
 
 		var post = new Post()
 			.Create("".PadLeft(50, '-'), "".PadLeft(160, '-'), "".PadLeft(300, '='));
@@ -162,7 +162,7 @@ public class PostTests
 	public void RemoveCategory_WithValidData_ShouldRaiseCategoryPostRemovedEvent()
 	{
 		// Arrange
-		var categoryId = Guid.NewGuid();
+		var categoryId = Guid.CreateVersion7();
 		var post = new Post().Create("".PadLeft(50, '-'), "".PadLeft(160, '-'), "".PadLeft(300, '='));
 		post.AddCategory(categoryId);
 
