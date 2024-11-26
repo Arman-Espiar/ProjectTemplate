@@ -137,6 +137,7 @@ public class Category : AggregateRoot<Category>
 		var guardResult = Guard.CheckIf(parentCategoryId, DataDictionary.ParentCategory)
 			.NotNull()
 			.NotEmpty()
+			.NotEqual(this.Id)
 			.Length(36);
 
 		Result.WithErrors(guardResult._result.Errors);

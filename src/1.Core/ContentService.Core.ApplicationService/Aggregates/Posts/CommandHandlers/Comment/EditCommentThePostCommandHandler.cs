@@ -6,14 +6,17 @@ using FluentResults;
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 using MDF.Resources.Common.FormattedMessages;
 
+using Microsoft.Extensions.Logging;
+
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers.Comment;
 public class EditCommentThePostCommandHandler : ICommandHandler<EditCommentThePostCommand, Guid>
 {
 	private readonly IPostCommandRepository _postCommandRepository;
-
-	public EditCommentThePostCommandHandler(IPostCommandRepository postCommandRepository)
+	private readonly ILogger<EditCommentThePostCommandHandler> _logger;
+	public EditCommentThePostCommandHandler(IPostCommandRepository postCommandRepository, ILogger<EditCommentThePostCommandHandler> logger)
 	{
 		_postCommandRepository = postCommandRepository;
+		_logger = logger;
 	}
 	public async Task<Result<Guid>> Handle(EditCommentThePostCommand request, CancellationToken cancellationToken)
 	{
@@ -32,7 +35,6 @@ public class EditCommentThePostCommandHandler : ICommandHandler<EditCommentThePo
 			return post.Result;
 		}
 		var notFoundValue = new Result<Guid>();
-		//notFoundValue.WithError(ValidationHelperMessages.NotFound(DataDictionary.Post));
 		notFoundValue.WithError(ErrorMessages.NotFound(request.ToString()));
 		return notFoundValue;
 	}

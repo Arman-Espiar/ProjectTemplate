@@ -9,7 +9,7 @@ using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 using Microsoft.Extensions.Logging;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.QueriesHandlers.GetAll;
-public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryQuery, List<CategoryQueryDto>>
+public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryQuery, List<CategoryQueryResult>>
 {
 	private readonly ICategoryQueryRepository _categoryQueryRepository;
 	private readonly ILogger<GetAllCategoryQueryHandler> _logger;
@@ -20,7 +20,7 @@ public class GetAllCategoryQueryHandler : IQueryHandler<GetAllCategoryQuery, Lis
 		_categoryQueryRepository = categoryQueryRepository;
 	}
 
-	public async Task<Result<List<CategoryQueryDto>>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
+	public async Task<Result<List<CategoryQueryResult>>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
 	{
 		var categories = await _categoryQueryRepository.ExecuteAsync(request, cancellationToken);
 		return Result.Ok(categories);

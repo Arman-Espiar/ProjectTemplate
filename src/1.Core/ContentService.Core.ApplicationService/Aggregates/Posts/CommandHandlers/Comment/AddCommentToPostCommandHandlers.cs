@@ -6,14 +6,17 @@ using FluentResults;
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 using MDF.Resources.Common.FormattedMessages;
 
+using Microsoft.Extensions.Logging;
+
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers.Comment;
 public sealed class AddCommentToPostCommandHandlers : ICommandHandler<AddCommentToPostCommand, Guid>
 {
 	private readonly IPostCommandRepository _postRepository;
-
-	public AddCommentToPostCommandHandlers(IPostCommandRepository postRepository)
+	private readonly ILogger<AddCommentToPostCommandHandlers> _logger;
+	public AddCommentToPostCommandHandlers(IPostCommandRepository postRepository, ILogger<AddCommentToPostCommandHandlers> logger)
 	{
 		_postRepository = postRepository;
+		_logger = logger;
 	}
 
 	public async Task<Result<Guid>> Handle(AddCommentToPostCommand request, CancellationToken cancellationToken)

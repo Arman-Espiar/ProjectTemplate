@@ -22,13 +22,9 @@ public partial class ContentServiceQueryDbContext : BaseQueryDbContext
 	//باید به مدل های همین پروژه اشاره کنیم
 	public virtual DbSet<CommentQuery> Comments { get; set; }
 	public virtual DbSet<PostQuery> Posts { get; set; }
-	public virtual DbSet<CategoryQuery> Categories { get; set; }
+	public  virtual DbSet<CategoryQuery> Categories { get; set; }
 
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-		base.OnConfiguring(optionsBuilder);
-	}
+
 	protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
 	{
 		base.ConfigureConventions(configurationBuilder);

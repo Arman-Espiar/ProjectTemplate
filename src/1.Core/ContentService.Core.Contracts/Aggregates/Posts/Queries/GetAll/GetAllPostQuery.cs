@@ -3,6 +3,6 @@
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
-public record GetAllPostQuery : IQuery<List<PostQueryDto>>
+public record GetAllPostQuery : IQuery<List<PostQueryResult>>
 {
 }

@@ -1,5 +1,3 @@
-using AutoMapper;
-
 using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
@@ -7,10 +5,11 @@ using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentBy
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
 using ContentService.Endpoints.API.Controllers;
-using ContentService.Endpoints.API.ViewModels.Posts;
 
 using FluentResults;
+
 using MDF.Framework.Extensions.Results;
+
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
@@ -22,21 +21,19 @@ namespace ContentService.Endpoints.API.Tests.Unit.Controllers;
 public class PostControllerTests
 {
 	private readonly Mock<IMediator> _mediatorMock;
-	private readonly Mock<IMapper> _mapperMock;
 	private readonly PostController _postController;
 
 	public PostControllerTests()
 	{
 		_mediatorMock = new Mock<IMediator>();
-		_mapperMock = new Mock<IMapper>();
-		_postController = new PostController(_mediatorMock.Object, _mapperMock.Object);
+		_postController = new PostController(_mediatorMock.Object);
 	}
 
 	[Fact]
 	public async Task ShouldBe_GetAllPostAsync_ReturnsListOfPostQueryDto_When_NoInput()
 	{
 		// Arrange
-		var expected = new List<PostQueryDto>();
+		var expected = new List<PostQueryResult>();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<GetAllPostQuery>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
@@ -45,7 +42,7 @@ public class PostControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actual = Assert.IsType<CustomResult<List<PostQueryDto>>>(okResult.Value);
+		var actual = Assert.IsType<CustomResult<List<PostQueryResult>>>(okResult.Value);
 		Assert.Equal(expected, actual.Value);
 	}
 
@@ -53,7 +50,7 @@ public class PostControllerTests
 	public async Task ShouldBe_GetAllPostWithCommentAsync_ReturnsListOfPostWithCommentsQueryDto_When_NoInput()
 	{
 		// Arrange
-		var expected = new List<PostWithCommentsQueryDto>();
+		var expected = new List<PostWithCommentsQueryResult>();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<GetAllPostWithCommentQuery>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
@@ -62,7 +59,7 @@ public class PostControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actual = Assert.IsType<CustomResult<List<PostWithCommentsQueryDto>>>(okResult.Value);
+		var actual = Assert.IsType<CustomResult<List<PostWithCommentsQueryResult>>>(okResult.Value);
 		Assert.Equal(expected, actual.Value);
 	}
 
@@ -71,7 +68,7 @@ public class PostControllerTests
 	{
 		// Arrange
 		var id = new GetPostByIdQuery();
-		var expected = new PostQueryDto
+		var expected = new PostQueryResult
 		{
 			Title = null,
 			Description = null,
@@ -85,7 +82,7 @@ public class PostControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actual = Assert.IsType<CustomResult<PostQueryDto>>(okResult.Value);
+		var actual = Assert.IsType<CustomResult<PostQueryResult>>(okResult.Value);
 		Assert.Equal(expected, actual.Value);
 	}
 
@@ -94,7 +91,7 @@ public class PostControllerTests
 	{
 		// Arrange
 		var id = new GetPostWithCommentsByIdQuery();
-		var expected = new PostWithCommentsQueryDto
+		var expected = new PostWithCommentsQueryResult
 		{
 			Title = null,
 			Description = null,
@@ -109,28 +106,26 @@ public class PostControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actual = Assert.IsType<CustomResult<PostWithCommentsQueryDto>>(okResult.Value);
+		var actual = Assert.IsType<CustomResult<PostWithCommentsQueryResult>>(okResult.Value);
 		Assert.Equal(expected, actual.Value);
 	}
 
 	[Fact]
-	public async Task ShouldBe_CreatePostAsync_ReturnsGuid_When_CreatePostVmInput()
+	public async Task ShouldBe_CreatePostAsync_ReturnsGuid_When_CreatePostCommandInput()
 	{
 		// Arrange
-		var createPostVm = new CreatePostVm
+		var createPost = new CreatePostCommand
 		{
 			Title = null,
 			Description = null,
 			Text = null
 		};
-		var postCommand = new CreatePostCommand();
 		var expected = Guid.CreateVersion7();
-		_mapperMock.Setup(x => x.Map<CreatePostCommand>(createPostVm)).Returns(postCommand);
 		_mediatorMock.Setup(x => x.Send(It.IsAny<CreatePostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
 		// Act
-		var result = await _postController.CreatePostAsync(createPostVm);
+		var result = await _postController.CreatePostAsync(createPost);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
@@ -184,28 +179,21 @@ public class PostControllerTests
 	public async Task ShouldBe_AddCommentToThePostAsync_ReturnsGuid_When_AddCommentToPostCommandVmInput()
 	{
 		// Arrange
-		var addCommentToPostCommandVm = new AddCommentToPostCommandVm
+		var addCommentToPostCommand = new AddCommentToPostCommand
 		{
 			PostId = default,
 			DisplayName = null,
 			Email = null,
 			CommentText = null
 		};
-		var commentToPostCommand = new AddCommentToPostCommand
-		{
-			CommandId = default,
-			PostId = default,
-			DisplayName = null,
-			Email = null,
-			CommentText = null
-		};
+
 		var expected = Guid.CreateVersion7();
-		_mapperMock.Setup(x => x.Map<AddCommentToPostCommand>(addCommentToPostCommandVm)).Returns(commentToPostCommand);
+
 		_mediatorMock.Setup(x => x.Send(It.IsAny<AddCommentToPostCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
 
 		// Act
-		var result = await _postController.AddCommentToThePostAsync(addCommentToPostCommandVm);
+		var result = await _postController.AddCommentToThePostAsync(addCommentToPostCommand);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);

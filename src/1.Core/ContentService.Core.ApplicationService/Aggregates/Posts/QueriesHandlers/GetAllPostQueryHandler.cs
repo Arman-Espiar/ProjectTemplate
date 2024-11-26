@@ -7,7 +7,7 @@ using FluentResults;
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
-public class GetAllPostQueryHandler : IQueryHandler<GetAllPostQuery, List<PostQueryDto>>
+public class GetAllPostQueryHandler : IQueryHandler<GetAllPostQuery, List<PostQueryResult>>
 {
 	private IPostQueryRepository _postQueryRepository;
 
@@ -16,9 +16,9 @@ public class GetAllPostQueryHandler : IQueryHandler<GetAllPostQuery, List<PostQu
 		_postQueryRepository = postQueryRepository;
 	}
 
-	public async Task<Result<List<PostQueryDto>>> Handle(GetAllPostQuery request, CancellationToken cancellationToken)
+	public async Task<Result<List<PostQueryResult>>> Handle(GetAllPostQuery request, CancellationToken cancellationToken)
 	{
-		Result<List<PostQueryDto>> reuslt = new();
+		Result<List<PostQueryResult>> reuslt = new();
 		var posts = await _postQueryRepository.ExecuteAsync(request, cancellationToken);
 		reuslt.WithValue(posts);
 		return reuslt;

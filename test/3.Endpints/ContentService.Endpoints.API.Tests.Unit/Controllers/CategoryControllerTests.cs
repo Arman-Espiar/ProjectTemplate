@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-
-using ContentService.Core.Contracts.Aggregates.Categories.Commands;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
 using ContentService.Endpoints.API.Controllers;
-using ContentService.Endpoints.API.ViewModels.Categories;
 
 using FluentResults;
 
@@ -22,24 +19,23 @@ namespace ContentService.Endpoints.API.Tests.Unit.Controllers;
 public class CategoryControllerTests
 {
 	private readonly Mock<IMediator> _mediatorMock;
-	private readonly Mock<IMapper> _mapperMock;
+
 	private readonly CategoryController _categoryController;
 
 	public CategoryControllerTests()
 	{
 		_mediatorMock = new Mock<IMediator>();
-		_mapperMock = new Mock<IMapper>();
-		_categoryController = new CategoryController(_mediatorMock.Object, _mapperMock.Object);
+		_categoryController = new CategoryController(_mediatorMock.Object);
 	}
 
 	[Fact]
 	public async Task ShouldBe_ReturnsListOfCategories_When_GetAllCategoryAsync()
 	{
 		// Arrange
-		var expectedCategories = new List<CategoryQueryDto>
+		var expectedCategories = new List<CategoryQueryResult>
 							{
-								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Category 1" },
-								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Category 2" }
+								new CategoryQueryResult { Id = Guid.CreateVersion7(), CategoryTitle = "Category 1" },
+								new CategoryQueryResult { Id = Guid.CreateVersion7(), CategoryTitle = "Category 2" }
 							};
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetAllCategoryQuery>(), It.IsAny<CancellationToken>()))
@@ -50,7 +46,7 @@ public class CategoryControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actualCategories = Assert.IsType<CustomResult<List<CategoryQueryDto>>>(okResult.Value);
+		var actualCategories = Assert.IsType<CustomResult<List<CategoryQueryResult>>>(okResult.Value);
 		Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 		Assert.Equal(expectedCategories, actualCategories.Value);
 	}
@@ -60,7 +56,7 @@ public class CategoryControllerTests
 	{
 		// Arrange
 		var categoryId = Guid.CreateVersion7();
-		var expectedCategory = new CategoryQueryDto { Id = categoryId, CategoryTitle = "Category 1" };
+		var expectedCategory = new CategoryQueryResult { Id = categoryId, CategoryTitle = "Category 1" };
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetCategoryByIdQuery>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expectedCategory);
@@ -70,7 +66,7 @@ public class CategoryControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actualCategory = Assert.IsType<CustomResult<CategoryQueryDto>>(okResult.Value);
+		var actualCategory = Assert.IsType<CustomResult<CategoryQueryResult>>(okResult.Value);
 		Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 		Assert.Equal(expectedCategory, actualCategory.Value);
 	}
@@ -80,10 +76,10 @@ public class CategoryControllerTests
 	{
 		// Arrange
 		var categoryId = Guid.CreateVersion7();
-		var expectedSubCategories = new List<CategoryQueryDto>
+		var expectedSubCategories = new List<CategoryQueryResult>
 							{
-								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 1" },
-								new CategoryQueryDto { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 2" }
+								new CategoryQueryResult { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 1" },
+								new CategoryQueryResult { Id = Guid.CreateVersion7(), CategoryTitle = "Subcategory 2" }
 							};
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<GetAllSubCategoryQuery>(), It.IsAny<CancellationToken>()))
@@ -94,7 +90,7 @@ public class CategoryControllerTests
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
-		var actualSubCategories = Assert.IsType<CustomResult<List<CategoryQueryDto>>>(okResult.Value);
+		var actualSubCategories = Assert.IsType<CustomResult<List<CategoryQueryResult>>>(okResult.Value);
 		Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 		Assert.Equal(expectedSubCategories, actualSubCategories.Value);
 	}
@@ -103,17 +99,15 @@ public class CategoryControllerTests
 	public async Task ShouldBe_ReturnsCreatedCategoryId_When_CreateCategoryAsync()
 	{
 		// Arrange
-		var createCategoryVm = new CreateCategoryCommandVm { CategoryTitle = "New Category" };
+		var createCategory = new CreateCategoryCommand { Title = "New Category" };
 		var categoryId = Guid.CreateVersion7();
 
-		_mapperMock.Setup(m => m.Map<CreateCategoryCommand>(createCategoryVm))
-			.Returns(new CreateCategoryCommand { Title = createCategoryVm.CategoryTitle });
 
 		_mediatorMock.Setup(m => m.Send(It.IsAny<CreateCategoryCommand>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(categoryId);
 
 		// Act
-		var result = await _categoryController.CreateCategoryAsync(createCategoryVm);
+		var result = await _categoryController.CreateCategoryAsync(createCategory);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);

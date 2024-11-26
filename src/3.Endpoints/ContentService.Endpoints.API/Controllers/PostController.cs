@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-
-using ContentService.Core.Contracts.Aggregates.Categories.Commands;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
-using ContentService.Endpoints.API.ViewModels.Posts;
 
 using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
@@ -20,72 +17,68 @@ namespace ContentService.Endpoints.API.Controllers;
 [Route("api/[controller]/[action]")]
 public class PostController : BaseController
 {
-	public PostController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
+	public PostController(IMediator mediator) : base(mediator)
 	{
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<List<PostQueryDto>>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<List<PostQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[HttpGet("")]
 	public Task<IActionResult> GetAllPostAsync()
 	{
-		return QueryAsync<GetAllPostQuery, List<PostQueryDto>>(new GetAllPostQuery());
+		return QueryAsync<GetAllPostQuery, List<PostQueryResult>>(new GetAllPostQuery());
 	}
-	[ProducesResponseType(type: typeof(CustomResult<List<PostWithCommentsQueryDto>>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<List<PostWithCommentsQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[HttpGet("")]
 	public Task<IActionResult> GetAllPostWithCommentAsync()
 	{
-		return QueryAsync<GetAllPostWithCommentQuery, List<PostWithCommentsQueryDto>>(new GetAllPostWithCommentQuery());
+		return QueryAsync<GetAllPostWithCommentQuery, List<PostWithCommentsQueryResult>>(new GetAllPostWithCommentQuery());
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<PostQueryDto>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<PostQueryResult>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpGet("")]
 	public Task<IActionResult> GetPostAsync(GetPostByIdQuery id)
 	{
-		return QueryAsync<GetPostByIdQuery, PostQueryDto>(id);
+		return QueryAsync<GetPostByIdQuery, PostQueryResult>(id);
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<PostQueryDto>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<PostQueryResult>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpGet("")]
 	public Task<IActionResult> GetPostAndCommentsAsync(GetPostWithCommentsByIdQuery id)
 	{
-		return QueryAsync<GetPostWithCommentsByIdQuery, PostWithCommentsQueryDto>(id);
+		return QueryAsync<GetPostWithCommentsByIdQuery, PostWithCommentsQueryResult>(id);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPost("")]
-	public Task<IActionResult> CreatePostAsync([FromBody] CreatePostVm createPostVm)
+	public Task<IActionResult> CreatePostAsync([FromBody] CreatePostCommand createPostCommand)
 	{
-		var postCommand = Mapper.Map<CreatePostCommand>(createPostVm);
-		return CreateAsync<CreatePostCommand, Guid>(postCommand);
+		return CreateAsync<CreatePostCommand, Guid>(createPostCommand);
 	}
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPut("")]
-	public Task<IActionResult> AddCategoryAsync([FromBody] AddCategoryVm addCategoryVm)
+	public Task<IActionResult> AddCategoryAsync([FromBody] AddCategoryCommand addCategoryCommand)
 	{
-		var addCategoryCommand = Mapper.Map<AddCategoryCommand>(addCategoryVm);
 		return EditAsync<AddCategoryCommand, Guid>(addCategoryCommand);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPatch("")]
-	public Task<IActionResult> ChangeCategoryAsync([FromBody] ChangeCategoryVm changeCategoryVm)
+	public Task<IActionResult> ChangeCategoryAsync([FromBody] ChangeCategoryCommand changeCategoryCommand)
 	{
-		var changeCategoryCommand = Mapper.Map<ChangeCategoryCommand>(changeCategoryVm);
 		return EditAsync<ChangeCategoryCommand, Guid>(changeCategoryCommand);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpDelete("")]
-	public Task<IActionResult> RemovePostCategoryAsync([FromBody] RemovePostCategoryVm removePostCategoryVm)
+	public Task<IActionResult> RemovePostCategoryAsync([FromBody] RemovePostCategoryCommand removePostCategory)
 	{
-		var removePostCategoryCommand = Mapper.Map<RemovePostCategoryCommand>(removePostCategoryVm);
-		return DeleteAsync<RemovePostCategoryCommand>(removePostCategoryCommand);
+		return DeleteAsync<RemovePostCategoryCommand>(removePostCategory);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
@@ -109,10 +102,9 @@ public class PostController : BaseController
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPost("")]
-	public Task<IActionResult> AddCommentToThePostAsync([FromBody] AddCommentToPostCommandVm addCommentToPostCommandVm)
+	public Task<IActionResult> AddCommentToThePostAsync([FromBody] AddCommentToPostCommand addCommentToPostCommand)
 	{
-		var commentToPostCommand = Mapper.Map<AddCommentToPostCommand>(addCommentToPostCommandVm);
-		return CreateAsync<AddCommentToPostCommand, Guid>(commentToPostCommand);
+		return CreateAsync<AddCommentToPostCommand, Guid>(addCommentToPostCommand);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]

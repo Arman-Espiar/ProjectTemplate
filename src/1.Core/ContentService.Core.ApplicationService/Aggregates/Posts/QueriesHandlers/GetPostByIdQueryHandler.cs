@@ -8,18 +8,22 @@ using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 using MDF.Resources.Common;
 using MDF.Resources.Common.FormattedMessages;
 
-namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
-public sealed class GetPostByIdQueryHandler : IQueryHandler<GetPostByIdQuery, PostQueryDto>
-{
-	IPostQueryRepository _postQueryRepository;
+using Microsoft.Extensions.Logging;
 
-	public GetPostByIdQueryHandler(IPostQueryRepository postQueryRepository)
+namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
+public sealed class GetPostByIdQueryHandler : IQueryHandler<GetPostByIdQuery, PostQueryResult>
+{
+	private readonly IPostQueryRepository _postQueryRepository;
+	private readonly ILogger<GetPostByIdQueryHandler> _logger;
+
+	public GetPostByIdQueryHandler(IPostQueryRepository postQueryRepository, ILogger<GetPostByIdQueryHandler> logger)
 	{
 		_postQueryRepository = postQueryRepository;
+		_logger = logger;
 	}
-	public async Task<Result<PostQueryDto>> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
+	public async Task<Result<PostQueryResult>> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
 	{
-		var result = new Result<PostQueryDto>();
+		var result = new Result<PostQueryResult>();
 		var postFound = await _postQueryRepository.ExecuteAsync(request);
 		if (postFound is null)
 		{

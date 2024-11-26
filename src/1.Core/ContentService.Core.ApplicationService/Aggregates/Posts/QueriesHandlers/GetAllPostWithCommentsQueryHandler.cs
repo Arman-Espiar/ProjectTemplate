@@ -6,18 +6,22 @@ using FluentResults;
 
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 
-namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
-public sealed class GetAllPostWithCommentsQueryHandler : IQueryHandler<GetAllPostWithCommentQuery, List<PostWithCommentsQueryDto>>
-{
-	private IPostQueryRepository _postQueryRepository;
+using Microsoft.Extensions.Logging;
 
-	public GetAllPostWithCommentsQueryHandler(IPostQueryRepository postQueryRepository)
+namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
+public sealed class GetAllPostWithCommentsQueryHandler : IQueryHandler<GetAllPostWithCommentQuery, List<PostWithCommentsQueryResult>>
+{
+	private readonly IPostQueryRepository _postQueryRepository;
+	private readonly ILogger<GetPostByIdQueryHandler> _logger;
+
+	public GetAllPostWithCommentsQueryHandler(IPostQueryRepository postQueryRepository, ILogger<GetPostByIdQueryHandler> logger)
 	{
 		_postQueryRepository = postQueryRepository;
+		_logger = logger;
 	}
-	public async Task<Result<List<PostWithCommentsQueryDto>>> Handle(GetAllPostWithCommentQuery request, CancellationToken cancellationToken)
+	public async Task<Result<List<PostWithCommentsQueryResult>>> Handle(GetAllPostWithCommentQuery request, CancellationToken cancellationToken)
 	{
-		Result<List<PostWithCommentsQueryDto>> result = new();
+		Result<List<PostWithCommentsQueryResult>> result = new();
 		var posts = await _postQueryRepository.ExecuteAsync(request, cancellationToken);
 		result.WithValue(posts);
 		return result;

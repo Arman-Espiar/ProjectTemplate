@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
 using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Common;
+using ContentService.Infrastructure.Persistence.Sql.Queries.Mapping;
 
 using MDF.Framework.Infrastructure.Queries;
 
@@ -14,35 +12,37 @@ using Microsoft.EntityFrameworkCore;
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Categories;
 public class CategoryQueryEntityFrameworkRepository : BaseQueryRepository<ContentServiceQueryDbContext>, ICategoryQueryRepository
 {
-	private IMapper _mapper;
-	public CategoryQueryEntityFrameworkRepository(ContentServiceQueryDbContext dbContext, IMapper mapper) : base(dbContext)
+
+	public CategoryQueryEntityFrameworkRepository(ContentServiceQueryDbContext dbContext) : base(dbContext)
 	{
-		_mapper = mapper;
 	}
 
-	public Task<List<CategoryQueryDto>> ExecuteAsync(GetAllCategoryQuery query, CancellationToken cancellationToken = default)
+	public Task<List<CategoryQueryResult>> ExecuteAsync(GetAllCategoryQuery query, CancellationToken cancellationToken = default)
+	{
+		return DbContext.Categories.Select(c => new CategoryQueryResult
+		{
+			Id = c.Id,
+			ParentCategoriesId = c.ParentCategoriesId,
+			CategoryTitle = c.CategoryTitle,
+			PostIds = c.PostIds
+		}).ToListAsync(cancellationToken);
+	}
+
+	public async Task<List<CategoryQueryResult>> ExecuteAsync(GetAllSubCategoryQuery query, CancellationToken cancellationToken = default)
 	{
 		return DbContext.Categories
-					   .ProjectTo<CategoryQueryDto>(_mapper.ConfigurationProvider)
-					   .ToListAsync(cancellationToken);
-	}
-
-	public async Task<List<CategoryQueryDto>> ExecuteAsync(GetAllSubCategoryQuery query, CancellationToken cancellationToken = default)
-	{
-		var allCategories = await DbContext.Categories.ToListAsync(cancellationToken);
-		var filteredCategories = allCategories
-			.Where(c => c.ParentCategoriesId.Any(pid => pid == query.CategoryId))
-			.Select(c => _mapper.Map<CategoryQueryDto>(c))
+			.AsEnumerable() //کل دیتابیس روی حافظه بارگذاری میشود. سپس باقی دستورات روی آن اجرا میشود. این روش برای داده های خیلی کم مناسب میباشد
+			.Where(c => c.ParentCategoriesId.Any(id => id == query.CategoryId))
+			.ToCategoryQueryResult()
 			.ToList();
-		return filteredCategories;
 
 	}
 
-	public Task<CategoryQueryDto> ExecuteAsync(GetCategoryByIdQuery query, CancellationToken cancellationToken = default)
+	public Task<CategoryQueryResult> ExecuteAsync(GetCategoryByIdQuery query, CancellationToken cancellationToken = default)
 	{
 		return DbContext.Categories
 			.Where(c => c.Id == query.Id)
-			.ProjectTo<CategoryQueryDto>(_mapper.ConfigurationProvider)
+			.ToCategoryQueryResult()
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 }

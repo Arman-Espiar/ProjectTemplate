@@ -1,6 +1,6 @@
 ﻿namespace ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
 
-public readonly record struct CategoryQueryDto
+public readonly record struct CategoryQueryResult
 {
 	public Guid Id { get; init; }
 	public string CategoryTitle { get; init; }

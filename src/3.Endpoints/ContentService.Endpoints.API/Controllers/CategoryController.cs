@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-
-using ContentService.Core.Contracts.Aggregates.Categories.Commands;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
-using ContentService.Endpoints.API.ViewModels.Categories;
 
 using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
@@ -17,48 +14,46 @@ namespace ContentService.Endpoints.API.Controllers;
 [Route("api/[controller]/[action]")]
 public class CategoryController : BaseController
 {
-	public CategoryController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
+	public CategoryController(IMediator mediator) : base(mediator)
 	{
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<List<CategoryQueryDto>>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<List<CategoryQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[HttpGet("")]
 	public Task<IActionResult> GetAllCategoryAsync()
 	{
-		return QueryAsync<GetAllCategoryQuery, List<CategoryQueryDto>>(new GetAllCategoryQuery());
+		return QueryAsync<GetAllCategoryQuery, List<CategoryQueryResult>>(new GetAllCategoryQuery());
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<CategoryQueryDto>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<CategoryQueryResult>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpGet("")]
 	public Task<IActionResult> GetCategoryAsync(GetCategoryByIdQuery categoryId)
 	{
-		return QueryAsync<GetCategoryByIdQuery, CategoryQueryDto>(categoryId);
+		return QueryAsync<GetCategoryByIdQuery, CategoryQueryResult>(categoryId);
 	}
 
-	[ProducesResponseType(type: typeof(CustomResult<List<CategoryQueryDto>>), statusCode: StatusCodes.Status200OK)]
+	[ProducesResponseType(type: typeof(CustomResult<List<CategoryQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpGet("")]
 	public Task<IActionResult> GetSubCategoriesAsync(GetAllSubCategoryQuery id)
 	{
-		return QueryAsync<GetAllSubCategoryQuery, List<CategoryQueryDto>>(id);
+		return QueryAsync<GetAllSubCategoryQuery, List<CategoryQueryResult>>(id);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPost("")]
-	public Task<IActionResult> CreateCategoryAsync([FromBody] CreateCategoryCommandVm createCategoryCommandVm)
+	public Task<IActionResult> CreateCategoryAsync([FromBody] CreateCategoryCommand createCategoryCommand)
 	{
-		var categoryCommand = Mapper.Map<CreateCategoryCommand>(createCategoryCommandVm);
-		return CreateAsync<CreateCategoryCommand, Guid>(categoryCommand);
+		return CreateAsync<CreateCategoryCommand, Guid>(createCategoryCommand);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPut("")]
-	public Task<IActionResult> AddParentCategoryAsync([FromBody] AddParentCategoryCommandVm addParentCategoryCommandVm)
+	public Task<IActionResult> AddParentCategoryAsync([FromBody] AddParentCategoryCommand addParentCategoryCommand)
 	{
-		var addParentCategoryCommand = Mapper.Map<AddParentCategoryCommand>(addParentCategoryCommandVm);
 		return CreateAsync<AddParentCategoryCommand, Guid>(addParentCategoryCommand);
 	}
 

@@ -1,5 +1,5 @@
 ﻿namespace ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
-public record PostQueryDto
+public record PostQueryResult
 {
 	public Guid Id { get; init; }
 	public List<Guid?> CategoryIds { get; init; }

@@ -16,7 +16,7 @@ using static MassTransit.ValidationResultExtensions;
 using Result = FluentResults.Result;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.QueriesHandlers.GetById;
-public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdQuery, CategoryQueryDto>
+public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdQuery, CategoryQueryResult>
 {
 	private readonly ICategoryQueryRepository _repository;
 	private readonly ILogger<GetCategoryByIdQueryHandler> _logger;
@@ -27,7 +27,7 @@ public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdQuery, C
 		_repository = repository;
 	}
 
-	public async Task<Result<CategoryQueryDto>> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+	public async Task<Result<CategoryQueryResult>> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
 	{
 		var category = await _repository.ExecuteAsync(request, cancellationToken);
 		if (string.IsNullOrEmpty(category.CategoryTitle))

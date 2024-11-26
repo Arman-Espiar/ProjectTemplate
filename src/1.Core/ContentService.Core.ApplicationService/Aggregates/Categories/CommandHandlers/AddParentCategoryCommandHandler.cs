@@ -6,13 +6,17 @@ using FluentResults;
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 using MDF.Resources.Common.FormattedMessages;
 
+using Microsoft.Extensions.Logging;
+
 namespace ContentService.Core.ApplicationService.Aggregates.Categories.CommandHandlers;
 public class AddParentCategoryCommandHandler : ICommandHandler<AddParentCategoryCommand, Guid>
 {
 	private readonly ICategoryCommandRepository _categoryCommandRepository;
-	public AddParentCategoryCommandHandler(ICategoryCommandRepository categoryCommandRepository)
+	private readonly ILogger<AddParentCategoryCommandHandler> _logger;
+	public AddParentCategoryCommandHandler(ICategoryCommandRepository categoryCommandRepository, ILogger<AddParentCategoryCommandHandler> logger)
 	{
 		_categoryCommandRepository = categoryCommandRepository;
+		_logger = logger;
 	}
 
 	public async Task<Result<Guid>> Handle(AddParentCategoryCommand request, CancellationToken cancellationToken)

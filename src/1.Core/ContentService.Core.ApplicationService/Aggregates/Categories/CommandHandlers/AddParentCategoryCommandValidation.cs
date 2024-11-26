@@ -8,6 +8,7 @@ public class AddParentCategoryCommandValidation : AbstractValidator<AddParentCat
 	public AddParentCategoryCommandValidation()
 	{
 		RuleFor(p => p.Id).NotEmpty();
-		RuleFor(p => p.ParentCategoryId).NotEmpty();
+		RuleFor(p => p.ParentCategoryId).NotEmpty()
+			.NotEqual(p => p.Id);
 	}
 }

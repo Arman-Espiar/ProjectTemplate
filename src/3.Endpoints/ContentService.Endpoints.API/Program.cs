@@ -17,6 +17,7 @@ using MDF.Framework.LayersContracts.Persistence.Commands;
 using MDF.Framework.LayersContracts.Persistence.Queries;
 using MDF.Framework.Middlewares;
 using MDF.Framework.SeedWork;
+using MDF.Resources.Extensions;
 
 using MediatR;
 
@@ -77,10 +78,7 @@ builder.Services.AddOpenTelemetry().ConfigureResource(cfg =>
 });
 #endregion End Remove This section if Using Aspire.net	
 
-//builder.Services.AddCommonLocalization(Path.Combine("ContentService", "Resources")); //felan vs bug darad , bug bartaraf shod uncomment konam 
-builder.Services.AddLocalization(o => o.ResourcesPath = Path.Combine("Resources", "Common"));//felan vs bug darad , bug bartaraf shod pak konam
-builder.Services.AddLocalization(o => o.ResourcesPath = Path.Combine("Core", "ContentService", "Resources"));//felan vs bug darad , bug bartaraf shod pak konam
-
+builder.Services.AddCommonLocalization(Path.Combine("ContentService", "Resources"));
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -124,10 +122,6 @@ builder.Services.AddDbContext<ContentServiceQueryDbContext>(options =>
 	options.UseCommonShadowPropertiesInterceptor()
 		.UseDomainEventsDispatcherInterceptor();
 });
-
-builder.Services.AddAutoMapper(options => options.AddMaps(
-	typeof(Program).Assembly
-	, typeof(ContentServiceQueryDbContext).Assembly));
 
 //ثبت خودکار ریپازیتوریها
 builder.Services.Scan(s => s.
@@ -202,7 +196,7 @@ var app = builder.Build();
 
 app.UseRequestLocalization(options =>
 {
-	var supportedCultures = new[] { "fa-IR", "en-US", "es" };
+	var supportedCultures = new[] { "fa-IR", "en-US" };
 	options.SetDefaultCulture(supportedCultures[0])
 		.AddSupportedCultures(supportedCultures)
 		.AddSupportedUICultures(supportedCultures)
@@ -225,7 +219,6 @@ if (!app.Environment.IsDevelopment())
 {
 	app.UseGlobalExceptionResultHandler();
 }
-
 
 
 app.MapControllers();

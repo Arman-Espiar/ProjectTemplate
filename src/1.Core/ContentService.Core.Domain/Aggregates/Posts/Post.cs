@@ -3,10 +3,14 @@ using ContentService.Core.Domain.Aggregates.Posts.ValueObjects;
 
 using EventBus.Messages.Aggregates.Posts.Events;
 
+using MDF.Framework.Extensions.Guards;
+using MDF.Framework.Extensions.Guards.GuardClauses;
 using MDF.Framework.SeedWork;
 using MDF.Framework.SeedWork.SharedKernel;
 using MDF.Resources.Common;
 using MDF.Resources.Common.FormattedMessages;
+
+using System.Security.Cryptography.X509Certificates;
 
 namespace ContentService.Core.Domain.Aggregates.Posts;
 
@@ -15,33 +19,17 @@ public class Post : AggregateRoot<Post>
 	public Title Title { get; private set; }
 	public Description Description { get; private set; }
 	public Text Text { get; private set; }
+
 	private readonly List<GuidId> _categoryIds;
 	public virtual IReadOnlyList<GuidId> CategoryIds => _categoryIds;
-	#region بارگذاری تنبل در سطح دامنه
-	private List<Comment> _comments;
-	public virtual IReadOnlyList<Comment> Comments
-	{
-		get
-		{
-			if (_comments == null)
-			{
-				LoadComments();
-			}
-			return _comments.AsReadOnly();
-		}
-	}
 
-	private void LoadComments()
-	{
-		// Load comments from the data source here.
-		// This is just a placeholder. You will need to replace this with your actual data loading logic.
-		_comments = new List<Comment>();
-	}
-	#endregion End بارگذاری تنبل در سطح دامنه
+	private List<Comment> _comments;
+	public virtual IReadOnlyList<Comment> Comments => _comments;
+
 
 	public Post()
 	{
-		//_comments = new List<Comment>(); // برای بارگداری تنبل کامنت شده است
+		_comments = new List<Comment>(); // برای بارگداری تنبل کامنت شده است
 		_categoryIds = new List<GuidId>();
 	}
 	private Post(string? title, string? description, string? text) : this()
@@ -219,26 +207,39 @@ public class Post : AggregateRoot<Post>
 		Result.WithErrors(commentOldResult.Errors);
 		Result.WithErrors(commentNewResult.Errors);
 
-		if (commentOldResult.Value.Email != commentNewResult.Value.Email)// change with guards
-		{
-			var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Email.Value, commentNewResult.Value.Email.Value);
-			Result.WithError(errorMessage);
-		}
-		if (commentOldResult.Value.Name != commentNewResult.Value.Name)// change with guards
-		{
-			var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Name.Value, commentNewResult.Value.Name.Value);
-			Result.WithError(errorMessage);
-		}
-		if (commentOldResult.Value.CommentText == commentNewResult.Value.CommentText)// change with guards
-		{
-			var errorMessage = ValidationMessages.Equality(commentOldResult.Value.CommentText.Value, commentNewResult.Value.CommentText.Value);
-			Result.WithError(errorMessage);
-		}
+		//if (commentOldResult.Value.Email != commentNewResult.Value.Email)// change with guards
+		//{
+		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Email.Value, commentNewResult.Value.Email.Value);
+		//	Result.WithError(errorMessage);
+		//}
+
+		var emailGuardResult = Guard.CheckIf(commentNewResult.Value.Email, DataDictionary.Email)
+			.Equal(commentOldResult.Value.Email);
+		Result.WithErrors(emailGuardResult.Errors);
+
+		//if (commentOldResult.Value.Name != commentNewResult.Value.Name)// change with guards
+		//{
+		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Name.Value, commentNewResult.Value.Name.Value);
+		//	Result.WithError(errorMessage);
+		//}
+		var nameGuardResult = Guard.CheckIf(commentNewResult.Value.Name, DataDictionary.Name)
+			.Equal(commentOldResult.Value.Name);
+		Result.WithErrors(nameGuardResult.Errors);
+
+		//if (commentOldResult.Value.CommentText == commentNewResult.Value.CommentText)// change with guards
+		//{
+		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.CommentText.Value, commentNewResult.Value.CommentText.Value);
+		//	Result.WithError(errorMessage);
+		//}
+		var commentTextGuardResult = Guard.CheckIf(commentNewResult.Value.CommentText, DataDictionary.CommentText)
+			.NotEqual(commentOldResult.Value.CommentText);
+		Result.WithErrors(commentTextGuardResult.Errors);
 
 		if (Result.IsFailed)
 		{
 			return this;
 		}
+
 		var hasAny = Comments
 			.Any(c => c.Name == commentNewResult.Value.Name
 					  && c.Email == commentNewResult.Value.Email

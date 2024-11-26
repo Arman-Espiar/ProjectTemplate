@@ -9,7 +9,7 @@ using MDF.Resources.Common;
 using MDF.Resources.Common.FormattedMessages;
 
 namespace ContentService.Core.ApplicationService.Aggregates.Posts.QueriesHandlers;
-public class GetPostWithCommentsByIdQueryHandler : IQueryHandler<GetPostWithCommentsByIdQuery, PostWithCommentsQueryDto>
+public class GetPostWithCommentsByIdQueryHandler : IQueryHandler<GetPostWithCommentsByIdQuery, PostWithCommentsQueryResult>
 {
 	private readonly IPostQueryRepository _postQueryRepository;
 
@@ -17,9 +17,9 @@ public class GetPostWithCommentsByIdQueryHandler : IQueryHandler<GetPostWithComm
 	{
 		_postQueryRepository = postQueryRepository;
 	}
-	public async Task<Result<PostWithCommentsQueryDto>> Handle(GetPostWithCommentsByIdQuery request, CancellationToken cancellationToken)
+	public async Task<Result<PostWithCommentsQueryResult>> Handle(GetPostWithCommentsByIdQuery request, CancellationToken cancellationToken)
 	{
-		var result = new Result<PostWithCommentsQueryDto>();
+		var result = new Result<PostWithCommentsQueryResult>();
 		var postFound = await _postQueryRepository.ExecuteAsync(request);
 		if (postFound == null)
 		{
