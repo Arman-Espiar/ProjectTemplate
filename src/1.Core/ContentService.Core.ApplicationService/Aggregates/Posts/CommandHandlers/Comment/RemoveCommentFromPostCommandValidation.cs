@@ -9,14 +9,14 @@ public class RemoveCommentFromPostCommandValidation : AbstractValidator<RemoveCo
 	public RemoveCommentFromPostCommandValidation()
 	{
 		//نامگذاری ها در این پروژه دقیق نیست
-		RuleFor(c => c.Name)
+		RuleFor(c => c.DisplayName)
 			.NotNull()
 			.MinimumLength(DisplayName.Minimum)
 			.MaximumLength(DisplayName.Maximum);
 		RuleFor(c => c.Email)
 			.NotNull()
 			.Matches(Email.EmailPattern);
-		RuleFor(c => c.Text)
+		RuleFor(c => c.CommentText)
 			.NotNull()
 			.MinimumLength(CommentText.Minimum)
 			.MaximumLength(CommentText.Maximum);

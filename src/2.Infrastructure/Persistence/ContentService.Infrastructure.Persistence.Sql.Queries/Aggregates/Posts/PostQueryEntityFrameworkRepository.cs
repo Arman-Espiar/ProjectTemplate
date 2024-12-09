@@ -1,10 +1,12 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
-using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 using ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Common;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Mapping;
+
+using Gridify;
 
 using MDF.Framework.Infrastructure.Queries;
 
@@ -33,14 +35,20 @@ public class PostQueryEntityFrameworkRepository : BaseQueryRepository<ContentSer
 
 	public Task<List<PostQueryResult>> ExecuteAsync(GetAllPostQuery query, CancellationToken cancellationToken = default)
 	{
-		//manual mapping
-		return DbContext.Posts.ToPostQueryResult().ToListAsync(cancellationToken);
+		return DbContext.Posts.ToPostQueryResult()//manual mapping
+			.ApplyPaging(query.Page, query.PageSize)
+			.ApplyFiltering(query.Filter)
+			.ApplyOrdering(query.OrderBy)
+			.ToListAsync(cancellationToken);
 	}
 
 	public Task<List<PostWithCommentsQueryResult>> ExecuteAsync(GetAllPostWithCommentQuery query, CancellationToken cancellationToken = default)
 	{
 		return DbContext.Posts.Include(p => p.Comments)
 		.ToPostWithCommentsQueryResult()
+		.ApplyPaging(query.Page, query.PageSize)
+		.ApplyFiltering(query.Filter)
+		.ApplyOrdering(query.OrderBy)
 			.ToListAsync(cancellationToken);
 	}
 

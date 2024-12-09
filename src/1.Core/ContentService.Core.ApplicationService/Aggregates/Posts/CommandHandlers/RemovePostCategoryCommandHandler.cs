@@ -1,5 +1,5 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.CommandRepositories;
-using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
+using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 
 using FluentResults;
 

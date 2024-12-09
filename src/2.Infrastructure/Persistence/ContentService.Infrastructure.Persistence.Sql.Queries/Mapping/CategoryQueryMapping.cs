@@ -1,5 +1,4 @@
-﻿
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Aggregates.Categories.QueryModels;
 
 

@@ -23,13 +23,13 @@ public class Post : AggregateRoot<Post>
 	private readonly List<GuidId> _categoryIds;
 	public virtual IReadOnlyList<GuidId> CategoryIds => _categoryIds;
 
-	private List<Comment> _comments;
+	private readonly List<Comment> _comments;
 	public virtual IReadOnlyList<Comment> Comments => _comments;
 
 
 	public Post()
 	{
-		_comments = new List<Comment>(); // برای بارگداری تنبل کامنت شده است
+		_comments = new List<Comment>();
 		_categoryIds = new List<GuidId>();
 	}
 	private Post(string? title, string? description, string? text) : this()
@@ -53,31 +53,31 @@ public class Post : AggregateRoot<Post>
 
 	public Post Create(string? title, string? description, string? text)
 	{
-		var checkValidations = new Post(title, description, text);
+		var post = new Post(title, description, text);
 
-		Result.WithErrors(checkValidations.Result.Errors);
+		Result.WithErrors(post.Result.Errors);
 		if (Result.IsFailed) return this;
 
 		if (Result.IsSuccess)
 		{
-			this.Text = checkValidations.Text;
-			this.Title = checkValidations.Title;
-			this.Description = checkValidations.Description;
+			this.Text = post.Text;
+			this.Title = post.Title;
+			this.Description = post.Description;
 			RaiseDomainEvent(new PostCreatedEvent(Id, this.Title.Value, this.Description.Value, this.Text.Value));
 		}
 		return this;
 	}
 	public Post UpdatePost(string? title, string? description, string? text)
 	{
-		var checkValidations = new Post(title, description, text);
-		Result.WithErrors(checkValidations.Result.Errors);
+		var post = new Post(title, description, text);
+		Result.WithErrors(post.Result.Errors);
 		if (Result.IsFailed) return this;
 
 		if (Result.IsSuccess)
 		{
-			this.Title = checkValidations.Title;
-			this.Description = checkValidations.Description;
-			this.Text = checkValidations.Text;
+			this.Title = post.Title;
+			this.Description = post.Description;
+			this.Text = post.Text;
 			RaiseDomainEvent(new PostUpdatedEvent(Id, Title.Value!, Description.Value!, Text.Value!));
 			Result.WithSuccess(SuccessMessages.SuccessUpdate(DataDictionary.Post));
 		}
@@ -93,7 +93,7 @@ public class Post : AggregateRoot<Post>
 			Result.WithErrors(guidResult.Errors);
 			return this;
 		}
-		//Note: if have IsDeleted property (soft delete) we can change to true here
+		//Note: if have IsDeleted property (soft delete) we can change bool to true here
 		RaiseDomainEvent(new PostRemovedEvent(id));
 		Result.WithSuccess(SuccessMessages.SuccessDelete(DataDictionary.Post));
 		return this;
@@ -183,7 +183,7 @@ public class Post : AggregateRoot<Post>
 			return this;
 		}
 
-		var hasAny = Comments
+		var hasAny = _comments
 			.Any(c => c.Name == commentResult.Value.Name
 					  && c.Email == commentResult.Value.Email
 					  && c.CommentText == commentResult.Value.CommentText);
@@ -207,30 +207,14 @@ public class Post : AggregateRoot<Post>
 		Result.WithErrors(commentOldResult.Errors);
 		Result.WithErrors(commentNewResult.Errors);
 
-		//if (commentOldResult.Value.Email != commentNewResult.Value.Email)// change with guards
-		//{
-		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Email.Value, commentNewResult.Value.Email.Value);
-		//	Result.WithError(errorMessage);
-		//}
-
 		var emailGuardResult = Guard.CheckIf(commentNewResult.Value.Email, DataDictionary.Email)
 			.Equal(commentOldResult.Value.Email);
 		Result.WithErrors(emailGuardResult.Errors);
 
-		//if (commentOldResult.Value.Name != commentNewResult.Value.Name)// change with guards
-		//{
-		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.Name.Value, commentNewResult.Value.Name.Value);
-		//	Result.WithError(errorMessage);
-		//}
 		var nameGuardResult = Guard.CheckIf(commentNewResult.Value.Name, DataDictionary.Name)
 			.Equal(commentOldResult.Value.Name);
 		Result.WithErrors(nameGuardResult.Errors);
 
-		//if (commentOldResult.Value.CommentText == commentNewResult.Value.CommentText)// change with guards
-		//{
-		//	var errorMessage = ValidationMessages.Equality(commentOldResult.Value.CommentText.Value, commentNewResult.Value.CommentText.Value);
-		//	Result.WithError(errorMessage);
-		//}
 		var commentTextGuardResult = Guard.CheckIf(commentNewResult.Value.CommentText, DataDictionary.CommentText)
 			.NotEqual(commentOldResult.Value.CommentText);
 		Result.WithErrors(commentTextGuardResult.Errors);
@@ -252,15 +236,15 @@ public class Post : AggregateRoot<Post>
 			return this;
 		}
 
-		//var commentIndex = _comments
-		//	.FindIndex(c => c.Name == commentOldResult.Value.Name
-		//			  && c.Email == commentOldResult.Value.Email
-		//			  && c.CommentText == commentOldResult.Value.CommentText);
-		var commentIndex = Comments
-			.Select((c, i) => new { Comment = c, Index = i })
-			.FirstOrDefault(x => x.Comment.Name == commentOldResult.Value.Name
-								 && x.Comment.Email == commentOldResult.Value.Email
-								 && x.Comment.CommentText == commentOldResult.Value.CommentText)?.Index;
+		var commentIndex = _comments
+			.FindIndex(c => c.Name == commentOldResult.Value.Name
+					  && c.Email == commentOldResult.Value.Email
+					  && c.CommentText == commentOldResult.Value.CommentText);
+		//var commentIndex = Comments
+		//	.Select((c, i) => new { Comment = c, Index = i })
+		//	.FirstOrDefault(x => x.Comment.Name == commentOldResult.Value.Name
+		//						 && x.Comment.Email == commentOldResult.Value.Email
+		//						 && x.Comment.CommentText == commentOldResult.Value.CommentText)?.Index;
 
 
 		if (commentIndex >= 0)

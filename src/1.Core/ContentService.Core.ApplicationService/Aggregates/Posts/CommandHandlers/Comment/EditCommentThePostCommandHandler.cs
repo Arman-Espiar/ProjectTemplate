@@ -20,7 +20,7 @@ public class EditCommentThePostCommandHandler : ICommandHandler<EditCommentThePo
 	}
 	public async Task<Result<Guid>> Handle(EditCommentThePostCommand request, CancellationToken cancellationToken)
 	{
-		var post = await _postCommandRepository.GetGraphByAsync(request.PostId, cancellationToken);
+		var post = await _postCommandRepository.GetByAsync(request.PostId, cancellationToken);
 
 		if (post is not null)
 		{

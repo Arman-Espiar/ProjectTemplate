@@ -3,7 +3,7 @@ using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
-using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 using ContentService.Endpoints.API.Controllers;
 
 using FluentResults;
@@ -36,9 +36,15 @@ public class PostControllerTests
 		var expected = new List<PostQueryResult>();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<GetAllPostQuery>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
-
+		var getAllPostQuery = new GetAllPostQuery
+		{
+			Filter = null,
+			OrderBy = null,
+			Page = 1,
+			PageSize = 20
+		};
 		// Act
-		var result = await _postController.GetAllPostAsync();
+		var result = await _postController.GetAllPostAsync(getAllPostQuery);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
@@ -53,9 +59,9 @@ public class PostControllerTests
 		var expected = new List<PostWithCommentsQueryResult>();
 		_mediatorMock.Setup(x => x.Send(It.IsAny<GetAllPostWithCommentQuery>(), It.IsAny<CancellationToken>()))
 			.ReturnsAsync(expected);
-
+		var getAllPostWithCommentQuery = new GetAllPostWithCommentQuery { OrderBy = null, Filter = null, Page = 1, PageSize = 1 };
 		// Act
-		var result = await _postController.GetAllPostWithCommentAsync();
+		var result = await _postController.GetAllPostWithCommentAsync(getAllPostWithCommentQuery);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);
@@ -193,7 +199,7 @@ public class PostControllerTests
 			.ReturnsAsync(expected);
 
 		// Act
-		var result = await _postController.AddCommentToThePostAsync(addCommentToPostCommand);
+		var result = await _postController.AddCommentToPostAsync(addCommentToPostCommand);
 
 		// Assert
 		var okResult = Assert.IsType<OkObjectResult>(result);

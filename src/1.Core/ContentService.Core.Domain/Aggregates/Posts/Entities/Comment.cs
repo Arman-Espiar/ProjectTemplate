@@ -12,24 +12,24 @@ public class Comment : Entity
 	public DisplayName Name { get; private set; }
 	public Email Email { get; private set; }
 	public CommentText CommentText { get; private set; }
-	public Guid PostId { get; private set; }
+	public Post Post { get; private set; }
 	private Comment()
 	{
 
 	}
-	private Comment(Guid postId, DisplayName name, Email email, CommentText text) : this()
+	private Comment(Post post, DisplayName name, Email email, CommentText text) : this()
 	{
-		PostId = postId;
+		Post = post;
 		Name = name;
 		Email = email;
 		CommentText = text;
 	}
 
-	public static Result<Comment> Create(Guid? postId, string? name, string? email, string? text)
+	public static Result<Comment> Create(Post? post, string? name, string? email, string? text)
 	{
 		Result<Comment> result = new();
 
-		if (!postId.HasValue || postId == Guid.Empty)
+		if (post is null)
 		{
 			var errorMessage = ValidationMessages.Required(DataDictionary.Post);
 			result.WithError(errorMessage);
@@ -49,7 +49,7 @@ public class Comment : Entity
 			return result;
 		}
 
-		var returnValue = new Comment((Guid)postId!, displayNameResult.Value, emailResult.Value, textResult.Value);
+		var returnValue = new Comment(post!, displayNameResult.Value, emailResult.Value, textResult.Value);
 		result.WithValue(returnValue);
 		return result;
 	}

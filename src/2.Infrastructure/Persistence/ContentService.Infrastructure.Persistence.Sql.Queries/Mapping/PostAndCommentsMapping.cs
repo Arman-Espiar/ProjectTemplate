@@ -1,4 +1,4 @@
-﻿using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+﻿using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 using ContentService.Infrastructure.Persistence.Sql.Queries.QueryModels;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Queries.Mapping;

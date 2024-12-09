@@ -1,7 +1,7 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 
 using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
@@ -62,7 +62,6 @@ public class CategoryController : BaseController
 	[HttpPut("")]
 	public Task<IActionResult> CategoryTitleChangeAsync([FromBody] CategoryTitleChangeCommand categoryTitleChangeCommand)
 	{
-		// mapper her if needed
 		return EditAsync<CategoryTitleChangeCommand, Guid>(categoryTitleChangeCommand);
 	}
 
@@ -71,7 +70,6 @@ public class CategoryController : BaseController
 	[HttpDelete("")]
 	public Task<IActionResult> DeleteCategoryAsync([FromBody] RemoveCategoryCommand removeCategoryCommand)
 	{
-		// mapper her if needed
 		return DeleteAsync<RemoveCategoryCommand>(removeCategoryCommand);
 	}
 
@@ -80,7 +78,6 @@ public class CategoryController : BaseController
 	[HttpDelete("")]
 	public Task<IActionResult> DeleteParentCategoryAsync([FromBody] RemoveParentCategoryCommand removeCategoryCommand)
 	{
-		// mapper her if needed
 		return DeleteAsync<RemoveParentCategoryCommand>(removeCategoryCommand);
 	}
 

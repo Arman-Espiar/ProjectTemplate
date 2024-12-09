@@ -1,4 +1,4 @@
-﻿namespace ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+﻿namespace ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 public class CommentQueryResult
 {
 	public Guid Id { get; set; }

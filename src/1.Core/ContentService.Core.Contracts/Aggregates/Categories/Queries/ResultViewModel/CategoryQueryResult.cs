@@ -1,4 +1,4 @@
-﻿namespace ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+﻿namespace ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 
 public readonly record struct CategoryQueryResult
 {

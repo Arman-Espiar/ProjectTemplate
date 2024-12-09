@@ -1,4 +1,4 @@
-﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 
 using MDF.Framework.LayersContracts.ApplicationServices.MediatorExtensions.CQRS;
 

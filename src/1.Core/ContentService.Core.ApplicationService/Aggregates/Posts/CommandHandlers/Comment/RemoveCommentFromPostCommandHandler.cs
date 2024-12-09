@@ -24,7 +24,7 @@ public class RemoveCommentFromPostCommandHandler : ICommandHandler<RemoveComment
 
 		if (post is not null)
 		{
-			post.RemoveComment(request.Name, request.Email, request.Text);
+			post.RemoveComment(request.DisplayName, request.Email, request.CommentText);
 
 			if (post.Result.IsSuccess)
 			{

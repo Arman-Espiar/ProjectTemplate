@@ -119,8 +119,6 @@ builder.Services.AddDbContext<ContentServiceQueryDbContext>(options =>
 	{
 		option.EnableRetryOnFailure(6);
 	});
-	options.UseCommonShadowPropertiesInterceptor()
-		.UseDomainEventsDispatcherInterceptor();
 });
 
 //ثبت خودکار ریپازیتوریها

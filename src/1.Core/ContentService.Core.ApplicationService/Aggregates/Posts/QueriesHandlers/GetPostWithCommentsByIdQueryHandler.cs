@@ -1,5 +1,5 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
-using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 using ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;
 
 using FluentResults;

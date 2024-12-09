@@ -1,8 +1,11 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.CommandRepositories;
 using ContentService.Core.Domain.Aggregates.Posts;
+using ContentService.Core.Domain.Aggregates.Posts.Entities;
 using ContentService.Infrastructure.Persistence.Sql.Commands.Common;
 
 using MDF.Framework.Infrastructure.Commands;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace ContentService.Infrastructure.Persistence.Sql.Commands.Aggregates.Posts;
 /// <summary>

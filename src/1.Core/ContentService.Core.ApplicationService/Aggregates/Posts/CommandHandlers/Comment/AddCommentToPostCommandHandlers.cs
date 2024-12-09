@@ -1,5 +1,6 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.CommandRepositories;
 using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
+using ContentService.Core.Domain.Aggregates.Posts;
 
 using FluentResults;
 
@@ -22,7 +23,6 @@ public sealed class AddCommentToPostCommandHandlers : ICommandHandler<AddComment
 	public async Task<Result<Guid>> Handle(AddCommentToPostCommand request, CancellationToken cancellationToken)
 	{
 		var post = await _postRepository.GetGraphByAsync(request.PostId, cancellationToken);
-
 		if (post is not null)
 		{
 			post.AddComment(request.DisplayName, request.Email, request.CommentText);

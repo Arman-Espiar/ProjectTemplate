@@ -4,7 +4,9 @@ using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
-using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
+
+using Gridify;
 
 using MDF.Framework.Endpoints.Api;
 using MDF.Framework.Extensions.Results;
@@ -23,15 +25,15 @@ public class PostController : BaseController
 
 	[ProducesResponseType(type: typeof(CustomResult<List<PostQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[HttpGet("")]
-	public Task<IActionResult> GetAllPostAsync()
+	public Task<IActionResult> GetAllPostAsync(GetAllPostQuery getAllPostQuery)
 	{
-		return QueryAsync<GetAllPostQuery, List<PostQueryResult>>(new GetAllPostQuery());
+		return QueryAsync<GetAllPostQuery, List<PostQueryResult>>(getAllPostQuery);
 	}
 	[ProducesResponseType(type: typeof(CustomResult<List<PostWithCommentsQueryResult>>), statusCode: StatusCodes.Status200OK)]
 	[HttpGet("")]
-	public Task<IActionResult> GetAllPostWithCommentAsync()
+	public Task<IActionResult> GetAllPostWithCommentAsync(GetAllPostWithCommentQuery postWithCommentQuery)
 	{
-		return QueryAsync<GetAllPostWithCommentQuery, List<PostWithCommentsQueryResult>>(new GetAllPostWithCommentQuery());
+		return QueryAsync<GetAllPostWithCommentQuery, List<PostWithCommentsQueryResult>>(postWithCommentQuery);
 	}
 
 	[ProducesResponseType(type: typeof(CustomResult<PostQueryResult>), statusCode: StatusCodes.Status200OK)]
@@ -95,14 +97,13 @@ public class PostController : BaseController
 	[HttpDelete("")]
 	public Task<IActionResult> DeletePostAsync([FromBody] RemovePostCommand removePostCommand)
 	{
-		//todo mapper her
 		return DeleteAsync<RemovePostCommand>(removePostCommand);
 	}
 	#region Comment
 	[ProducesResponseType(type: typeof(CustomResult<Guid>), statusCode: StatusCodes.Status200OK)]
 	[ProducesResponseType(type: typeof(CustomResult), statusCode: StatusCodes.Status400BadRequest)]
 	[HttpPost("")]
-	public Task<IActionResult> AddCommentToThePostAsync([FromBody] AddCommentToPostCommand addCommentToPostCommand)
+	public Task<IActionResult> AddCommentToPostAsync([FromBody] AddCommentToPostCommand addCommentToPostCommand)
 	{
 		return CreateAsync<AddCommentToPostCommand, Guid>(addCommentToPostCommand);
 	}

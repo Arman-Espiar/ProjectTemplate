@@ -32,7 +32,6 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
 			.IsRequired(true)
 			.HasConversion(t => t.Value, t => Text.Create(t).Value);
 
-
 		builder.OwnsMany<Comment>(c => c.Comments, cc =>
 		{
 			cc.ToTable("Comments");

@@ -1,7 +1,7 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Categories.Commands;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 using ContentService.Endpoints.API.Controllers;
 
 using FluentResults;

@@ -1,5 +1,5 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 
 using FluentResults;

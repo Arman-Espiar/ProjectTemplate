@@ -1,7 +1,7 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostAndCommentById;
 using ContentService.Core.Contracts.Aggregates.Posts.Queries.GetPostById;
-using ContentService.Core.Contracts.Aggregates.Posts.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Posts.Queries.ResultViewModel;
 
 
 namespace ContentService.Core.Contracts.Aggregates.Posts.QueryRepositories;

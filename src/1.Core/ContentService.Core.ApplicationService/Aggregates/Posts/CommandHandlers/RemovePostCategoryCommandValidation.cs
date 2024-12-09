@@ -1,4 +1,4 @@
-﻿using ContentService.Core.Contracts.Aggregates.Posts.Commands.Comment;
+﻿using ContentService.Core.Contracts.Aggregates.Posts.Commands;
 
 using FluentValidation;
 

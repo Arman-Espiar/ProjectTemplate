@@ -1,6 +1,6 @@
 ﻿using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetAll;
 using ContentService.Core.Contracts.Aggregates.Categories.Queries.GetCategoryById;
-using ContentService.Core.Contracts.Aggregates.Categories.Queries.Models;
+using ContentService.Core.Contracts.Aggregates.Categories.Queries.ResultViewModel;
 using ContentService.Core.Contracts.Aggregates.Categories.QueryRepositories;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Common;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Mapping;
