@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\MicroDomainFlowFramework\src\Framework\Framework.csproj" />
     <ProjectReference Include="..\..\..\1.Core\ContentService.Core.Contracts\ContentService.Core.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>

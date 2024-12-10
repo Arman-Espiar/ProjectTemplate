@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MicroDomainFlowTemplate</id>
+    <version>0.1.1</version>
+    <authors>Arman Espiar</authors>
+    <license type="expression">MIT</license>
+    <description>Project template for MDF framework.</description>
+    <tags>template</tags>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+
+  <files>
+    <file src="ProjectTemplate\**\*.*" exclude="ProjectTemplate\**\bin\**\*.*;ProjectTemplate\**\obj\**\*.*" target="Content" />
+  </files>
+</package>

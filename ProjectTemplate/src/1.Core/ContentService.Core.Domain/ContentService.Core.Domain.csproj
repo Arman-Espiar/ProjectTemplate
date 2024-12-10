@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="MicroDomainFlow.BaseResources" Version="0.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentService.Resources\ContentService.Resources.csproj" />

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MicroDomainFlowFramework\src\Framework\Framework.csproj" />
+	  <PackageReference Include="MicroDomainFlow.BaseFramework" Version="0.1.2" /> 
   </ItemGroup>
 
 </Project>

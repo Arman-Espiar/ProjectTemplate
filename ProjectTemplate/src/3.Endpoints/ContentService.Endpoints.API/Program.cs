@@ -1,10 +1,13 @@
-﻿using ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
+﻿#if (IncludeExample)
+using ContentService.Core.ApplicationService.Aggregates.Posts.CommandHandlers;
 using ContentService.Core.ApplicationService.Aggregates.Posts.EventHandlers;
+#endif
 using ContentService.Infrastructure.Persistence.Sql.Commands.Common;
 using ContentService.Infrastructure.Persistence.Sql.Queries.Common;
 
+#if (IncludeExample)
 using EventBus.Messages.Aggregates.Posts.Events;
-
+#endif
 using FluentValidation;
 
 using MassTransit;
@@ -23,12 +26,14 @@ using MediatR;
 
 using Microsoft.EntityFrameworkCore;
 
+#if (ThisProjectIsAspireNet == false)
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-
+#endif
 var builder = WebApplication.CreateBuilder(args);
+#if (ThisProjectIsAspireNet == false)
 #region Remove This section if Using Aspire.net
 builder.Services.AddLogging(option =>
 {
@@ -77,7 +82,7 @@ builder.Services.AddOpenTelemetry().ConfigureResource(cfg =>
 	//	.AddOtlpExporter(/*cfg => cfg.Endpoint = new("http://localhost:4317")*/);
 });
 #endregion End Remove This section if Using Aspire.net	
-
+#endif
 builder.Services.AddCommonLocalization(Path.Combine("ContentService", "Resources"));
 // Add services to the container.
 builder.Services.AddControllers();
@@ -89,7 +94,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddValidatorsFromAssemblies(new[]
 {
+#if (IncludeExample)
 	typeof(CreatePostCommandValidation).Assembly,
+#endif
+#if (!IncludeExample)
+	typeof(OneClassFromCoreApplicaitonServiceLayer).Assembly,
+#endif
 	typeof(Entity).Assembly
 });
 
@@ -133,6 +143,7 @@ FromAssembliesOf(typeof(ContentServiceCommandDbContext))
 	.AsImplementedInterfaces()
 	.WithScopedLifetime()
 );
+#if (ThisProjectIsAspireNet == false)
 #region Masstransit Configuration if using Aspire.net you must setup masstransit settings for app host
 //https://github.com/MassTransit/MassTransit/discussions/4780
 //https://fiyaz-hasan-me-blog.azurewebsites.net/aspire-messaging-with-rabbitmq-and-masstransit/
@@ -188,7 +199,7 @@ builder.Services.AddLogging(options =>
 	});
 });
 #endregion Masstransit Configuration if using Aspire.net you must setup masstransit settings for app host
-
+#endif
 
 var app = builder.Build();
 
@@ -220,9 +231,11 @@ if (!app.Environment.IsDevelopment())
 
 
 app.MapControllers();
+#if (ThisProjectIsAspireNet == false)
 ContentService.Endpoints.API.LoggerExtensions.StartingApp(app.Logger);// Remove this section if using Aspire.net
+#endif
 app.Run();
-
+#if (ThisProjectIsAspireNet == false)
 #region Remove this section if using Aspire.net
 namespace ContentService.Endpoints.API
 {
@@ -239,3 +252,4 @@ namespace ContentService.Endpoints.API
 	}
 }
 #endregion End Remove this section if using Aspire.net
+#endif
